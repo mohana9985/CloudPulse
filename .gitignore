@@ -1,0 +1,71 @@
+# CloudPulse monorepo — root .gitignore
+# Covers cloudpulse-store/ and cloudpulse-scheduler/. Each application also keeps its own
+# .gitignore (the scheduler's controls which experiment outputs are tracked).
+
+# ---- Secrets and credentials -------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+.aws/
+credentials.json
+
+# ---- Python ------------------------------------------------------------------
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+*.egg-info/
+
+# ---- Node / frontend build ---------------------------------------------------
+node_modules/
+cloudpulse-store/frontend/dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ---- Local databases (runtime data, never committed) -------------------------
+*.db
+*.db-shm
+*.db-wal
+*.db-journal
+*.sqlite
+*.sqlite3
+cloudpulse-store/backend/data/
+
+# ---- Generated load-test output ----------------------------------------------
+cloudpulse-store/load-testing/results/
+
+# ---- Logs and temporary files ------------------------------------------------
+*.log
+*.tmp
+*.swp
+*~
+
+# ---- OS and IDE files --------------------------------------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.code-workspace
+
+# ---- Archives and local-only files at the repository root --------------------
+# Packaged copies of the project folders (duplicates of tracked source).
+*.zip
+# Private correspondence (contains personal e-mail addresses) and local
+# deployment session logs (contain host details) are kept out of the public repo.
+/*.pdf
+/terminal.md

@@ -1,0 +1,5 @@
+# Runtime
+PyYAML==6.0.3
+matplotlib==3.11.2      # charts (pulls numpy, pillow, etc.)
+# Tests
+pytest==9.2.0

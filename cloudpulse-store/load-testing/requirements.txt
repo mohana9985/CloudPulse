@@ -1,0 +1,2 @@
+# Load-testing tools (install in a separate virtual environment, see README.md)
+locust==2.43.1

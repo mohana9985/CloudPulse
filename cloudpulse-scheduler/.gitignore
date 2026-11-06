@@ -1,0 +1,51 @@
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Environment secrets
+.env
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Python tooling
+.mypy_cache/
+.ruff_cache/
+
+# macOS
+.DS_Store
+
+# IDE and editor files
+.idea/
+.vscode/
+
+# Temporary files
+*.log
+*.tmp
+
+# Experiment outputs:
+# Ignore generated experiments by default.
+results/*
+charts/*
+
+# Keep placeholder files so the empty directories exist.
+!results/.gitkeep
+!charts/.gitkeep
+!results/README.md
+!charts/README.md
+
+# Preserve the verified Stage 4 experiment results.
+!results/stage4-grid/
+!results/stage4-grid/**
+
+# Preserve the Stage 4 comparison charts.
+!charts/stage4-grid/
+!charts/stage4-grid/**

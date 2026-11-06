@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="Portable Power Bank 20000mAh">
+<rect width="400" height="400" fill="#e8eef8"/>
+<circle cx="200" cy="172" r="105" fill="#ffffff" opacity="0.7"/>
+<rect x="130" y="110" width="140" height="95" rx="8" fill="none" stroke="#233d6c" stroke-width="10"/><path d="M175 230h50M200 205v25" stroke="#233d6c" stroke-width="10" stroke-linecap="round"/>
+<text x="200" y="300" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#233d6c">Portable Power Bank</text><text x="200" y="326" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#233d6c">20000mAh</text>
+<text x="200" y="372" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="13" letter-spacing="2" fill="#233d6c" opacity="0.7">ELECTRONICS</text>
+</svg>

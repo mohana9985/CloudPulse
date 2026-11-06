@@ -1,0 +1,39 @@
+# All durations are simulated seconds on a reference worker with capacity 1.0.
+
+experiment:
+  seed: 42          # same seed -> identical workload (single runs)
+  num_tasks: 100
+  # Full comparison grid (python -m src.main --grid). Every (size, load, seed)
+  # cell generates ONE workload that all five configurations share.
+  grid:
+    sizes: [100, 250, 500]
+    seeds: [42, 43, 44, 45, 46, 47, 48, 49, 50, 51]
+    loads:              # name: target utilisation of total worker capacity
+      underloaded: 0.50
+      nominal: 0.85
+      overloaded: 1.20
+
+workload:
+  # Offered load as a fraction of total available worker capacity.
+  # ~0.85 makes queues form, so algorithms actually differ.
+  target_utilisation: 0.85
+  # Estimates seen by LL and SJF = actual * uniform(1 - e, 1 + e).
+  estimate_error: 0.20
+  size_mix:          # probability of each task size
+    small: 0.6
+    medium: 0.3
+    large: 0.1
+  size_ranges:       # [min, max] actual duration, uniform
+    small: [1, 5]
+    medium: [5, 20]
+    large: [20, 60]
+
+# Worker order matters: it is the tie-break order (first listed wins).
+# capacity: relative speed (runtime = duration / capacity)
+# weight:   Weighted Round Robin share (integer >= 1), default 5:3:2
+# available: false = worker never receives tasks
+# max_queue_length: max tasks held (running + queued); omit/null = unlimited
+workers:
+  - {id: W1, capacity: 1.0, weight: 5}
+  - {id: W2, capacity: 0.6, weight: 3}
+  - {id: W3, capacity: 0.4, weight: 2}

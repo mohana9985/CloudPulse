@@ -1,0 +1,14 @@
+.venv
+venv
+__pycache__
+*.pyc
+.pytest_cache
+tests
+data
+*.db
+*.db-*
+.env
+.env.*
+requirements-dev.txt
+pytest.ini
+.DS_Store

@@ -1,0 +1,34 @@
+CloudPulse Scheduler — experiment stage4-grid (grid)
+Workers: W1(cap 1, w 5), W2(cap 0.6, w 3), W3(cap 0.4, w 2)
+Grid: sizes [100, 250, 500] × loads {'underloaded': 0.5, 'nominal': 0.85, 'overloaded': 1.2} × 10 seeds × 5 configurations = 450 runs
+
+Mean across seeds — 500 tasks, underloaded ('done' = minimum over seeds):
+Algorithm         done  avg wait   avg TAT  p95 wait  max wait  makespan   thrpt  util% idle-wait%
+--------------------------------------------------------------------------------------------------
+RR                 500     54.25     71.11    294.12    435.04    4946.4  0.1014   57.0       27.0
+WRR                500     12.62     27.26     63.20    166.69    4733.0  0.1059   51.6       16.4
+LL                 500      3.69     17.65     22.86     53.11    4723.3  0.1061   49.4        0.3
+SJF                500      2.46     16.56     14.38     74.71    4723.6  0.1061   49.9        0.0
+FCFS (control)     500      3.61     17.70     22.41     47.92    4725.4  0.1060   49.8        0.0
+
+Mean across seeds — 500 tasks, nominal ('done' = minimum over seeds):
+Algorithm         done  avg wait   avg TAT  p95 wait  max wait  makespan   thrpt  util% idle-wait%
+--------------------------------------------------------------------------------------------------
+RR                 500    266.74    283.60   1172.97   1389.33    4153.9  0.1218   68.2       29.9
+WRR                500     72.03     86.66    253.30    359.71    2979.0  0.1681   82.0       13.4
+LL                 500     42.41     57.01    116.64    150.99    2876.0  0.1741   84.8        0.3
+SJF                500     15.15     29.82     56.38    502.67    2900.7  0.1726   84.5        0.0
+FCFS (control)     500     42.55     57.19    117.25    143.60    2871.6  0.1744   85.1        0.0
+
+Mean across seeds — 500 tasks, overloaded ('done' = minimum over seeds):
+Algorithm         done  avg wait   avg TAT  p95 wait  max wait  makespan   thrpt  util% idle-wait%
+--------------------------------------------------------------------------------------------------
+RR                 500    477.06    493.91   1801.76   2110.92    4085.5  0.1240   69.4       29.6
+WRR                500    270.93    285.56    645.46    731.08    2685.1  0.1866   90.9        7.7
+LL                 500    246.43    261.10    496.88    543.97    2499.5  0.2002   97.8        0.2
+SJF                500     58.44     73.15    262.38   1952.46    2540.2  0.1970   96.5        0.0
+FCFS (control)     500    245.74    260.43    491.19    531.07    2505.7  0.1998   97.7        0.0
+
+Times in simulated seconds. Utilisation = simulated workers, not EC2 CPU. FCFS = control baseline.
+Results: <repo>/cloudpulse-scheduler/results/stage4-grid  (algorithm_comparison.csv, comparison_tables.md, experiment_summary.json, fcfs_vs_sjf.csv, per_worker.csv, results.csv, results.json)
+Charts:  <repo>/cloudpulse-scheduler/charts/stage4-grid  (10 PNG files)

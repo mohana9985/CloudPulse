@@ -1,0 +1,1598 @@
+{
+  "experiment_id": "stage4-grid",
+  "timestamp": "2026-11-05T17:44:04+00:00",
+  "mode": "grid",
+  "workload_sizes": [
+    100,
+    250,
+    500
+  ],
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51
+  ],
+  "load_conditions": {
+    "underloaded": 0.5,
+    "nominal": 0.85,
+    "overloaded": 1.2
+  },
+  "n_seeds": 10,
+  "workload_generator": {
+    "target_utilisation": 0.85,
+    "total_capacity": 2.0,
+    "estimate_error": 0.2,
+    "size_mix": {
+      "small": 0.6,
+      "medium": 0.3,
+      "large": 0.1
+    },
+    "size_ranges": {
+      "small": [
+        1.0,
+        5.0
+      ],
+      "medium": [
+        5.0,
+        20.0
+      ],
+      "large": [
+        20.0,
+        60.0
+      ]
+    }
+  },
+  "sim_wall_clock_seconds": 1.638,
+  "worker_config": [
+    {
+      "worker_id": "W1",
+      "capacity": 1.0,
+      "weight": 5,
+      "available": true,
+      "max_queue_length": null
+    },
+    {
+      "worker_id": "W2",
+      "capacity": 0.6,
+      "weight": 3,
+      "available": true,
+      "max_queue_length": null
+    },
+    {
+      "worker_id": "W3",
+      "capacity": 0.4,
+      "weight": 2,
+      "available": true,
+      "max_queue_length": null
+    }
+  ],
+  "worker_config_fingerprint": "c053575c54b4974ae32c93d9b6ddbe229d3d57c6cabeb78dee7e35d29b966440",
+  "workload_fingerprints": [
+    {
+      "workload_size": 100,
+      "load_condition": "nominal",
+      "seed": 42,
+      "fingerprint": "7bf341a7668e3ccdf12ab9f01a530703ae4d37161db1a713a0ccf30fe3da456c"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "nominal",
+      "seed": 43,
+      "fingerprint": "05019686208c959ac47c07d7c90aa54a1d15b13f6cf3d7f1933e2a3a1731cf55"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "nominal",
+      "seed": 44,
+      "fingerprint": "e9476f58c8511ab278d6861b6842229a26ef65a28e78288a6c6f173928eaeab7"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "nominal",
+      "seed": 45,
+      "fingerprint": "bcfb95169a708a25646ba55fe809fdb92fa2591e705b7785f0b17a9e8781b49b"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "nominal",
+      "seed": 46,
+      "fingerprint": "323e45f11e3addfadc58c131961812e3595e532dda3dfc6141f41909f2539dc4"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "nominal",
+      "seed": 47,
+      "fingerprint": "3253925992b29165962a70ba5bd27caeed657a7222a86523074ba56bb002bfb8"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "nominal",
+      "seed": 48,
+      "fingerprint": "3530a05ce0b25fac1dea54f8f7bb440d30cb9bd21061ce86a0dc55d5870be658"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "nominal",
+      "seed": 49,
+      "fingerprint": "585ed44364aeea3e2ef9e089c284af87db75fe7238f6e93c97614761e88c5176"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "nominal",
+      "seed": 50,
+      "fingerprint": "ef2f7eed643cb2ceb3a7d8458afdd90f2e61d19fe54512c0378a1ae2539f55d0"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "nominal",
+      "seed": 51,
+      "fingerprint": "c3ab09fe0a10f91b6b07af10c5a1af525d7bb46671bbaf246916eb1c967b2a2a"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "overloaded",
+      "seed": 42,
+      "fingerprint": "76223dc400b1fccbdb829b207583ac782de38efb8ec396a11dffa6e4d0d7800d"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "overloaded",
+      "seed": 43,
+      "fingerprint": "2f5e2462c548a6b8ea8f1c34cfbe2de4fa5d3fd0cd854cde4e09f6b54c6d0eb0"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "overloaded",
+      "seed": 44,
+      "fingerprint": "a49c76203ef46148a1fa2345e60511d735fad53d6d2cb7d25bb8c6056d43ecd5"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "overloaded",
+      "seed": 45,
+      "fingerprint": "672c57056f835a23065530fa08bf10691273f2c14fa67d4ae38155e94f311335"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "overloaded",
+      "seed": 46,
+      "fingerprint": "a020ea7a4b2ec2beb19de54ccf82847686862d37b2725aa8634b910c77fd0fdb"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "overloaded",
+      "seed": 47,
+      "fingerprint": "7b65829f05d53a6732c75eb129ed03c25464567d2381b715c117f5cf5d899028"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "overloaded",
+      "seed": 48,
+      "fingerprint": "b93cde8ec1994e67c3fb24a97c9ab842683bea7a6e2849b423d2c59c07390f2f"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "overloaded",
+      "seed": 49,
+      "fingerprint": "c8aa87e3c9763d7fae66642a65e1ecef795eded7314e1cac4bee11479b8fdaec"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "overloaded",
+      "seed": 50,
+      "fingerprint": "b968d94db59bc02fa0d918023d347afb0ee6e6efa1fa20317452cbf13058b8f0"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "overloaded",
+      "seed": 51,
+      "fingerprint": "b1a6cc6d242e51c68faa3c0a266e352ffbf68e0e690e807b1931430199fe64bb"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "seed": 42,
+      "fingerprint": "6103db3e8cc224a504b215d1a3d124339e1707dc08122b9084553c86dcccb09f"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "seed": 43,
+      "fingerprint": "342dac8c7998d15cd08c18b37b00c958faf234aa70548e586d390efaed84a956"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "seed": 44,
+      "fingerprint": "4dd65579f3a327624126e9ed1ce31011ee1b6565fcc347fb6b951bee7af09bd5"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "seed": 45,
+      "fingerprint": "d15c3c4aaf37a0d563f8d073eb7b86c91351ab75ce2039461b8e6595f8e2b9ec"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "seed": 46,
+      "fingerprint": "23d240461f4d01845f00deefd119782bb4a7b368d295bd6ecc4f471847190e36"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "seed": 47,
+      "fingerprint": "f8475192b3692cd2bf5748216299110bcb99a08e1299f79608dfa3ccf9df46a7"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "seed": 48,
+      "fingerprint": "952c58f6c9b71d9df3fea237b6ffc4d6d83df4efcef1b8e81f58e75cf200fa52"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "seed": 49,
+      "fingerprint": "2cc0081abcf875ef1dea41bafdc5a3dc5bd2570974969db6e1a154784936ab01"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "seed": 50,
+      "fingerprint": "9ba1be207e19d1fd86d979ae5c19d6133823fc30dcaca2bd7e03f7295ea311a4"
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "seed": 51,
+      "fingerprint": "b4c06069878aa2e7229caca6b5214a33b07228bab9a87d6f91411d38959db3af"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "nominal",
+      "seed": 42,
+      "fingerprint": "e803772e9c3e6fae486e2c23d4e824d63773b54f36311dfa09f2fd90758fedca"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "nominal",
+      "seed": 43,
+      "fingerprint": "f06422c3bedae9ebb96f596a80f9496e946f42b8a7ed252a3e5e1d8740a79b37"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "nominal",
+      "seed": 44,
+      "fingerprint": "94735a0057afd686d073e71a3695ffc73ecee596448f59ef662f64e7b04eb008"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "nominal",
+      "seed": 45,
+      "fingerprint": "7209e9da4ec58c9c55c7edcd209bdebd9e78368096667613331068d390fb1c48"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "nominal",
+      "seed": 46,
+      "fingerprint": "45ca9e50ae4388f82b3ddf9dba14dc3137b895d9cccf829dccfdaf45c6d6f745"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "nominal",
+      "seed": 47,
+      "fingerprint": "b86be049a2a242f08598ae62c9f032a9437c63c0c998b0d8e4a439ef1110a4a6"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "nominal",
+      "seed": 48,
+      "fingerprint": "8386522d420c6a4f8b0908c3e4faafd3a40cdc4c2e10c662e650eb0f4ac58642"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "nominal",
+      "seed": 49,
+      "fingerprint": "5a7dec0a0ff6b4a8256bcd93ebdf0aeb6c27ffa609b127cbb2adaa798384d662"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "nominal",
+      "seed": 50,
+      "fingerprint": "141d239dc52af4d7ddca531007eb5c03f3b43bb42c1b46653af6ff2ec490cc86"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "nominal",
+      "seed": 51,
+      "fingerprint": "e4c0917f95789dc839b4e6bb98e2df7efb0e62c9b8091c47611246561b77d006"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "overloaded",
+      "seed": 42,
+      "fingerprint": "fa54c5d976b7b2ff1d660a829cc04ebac78c146ae8af0b1e643a8bd6b6247f8f"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "overloaded",
+      "seed": 43,
+      "fingerprint": "1b9c80b48dc9d584695700fe1ac95d0bb6b329b2e5365762f4c3906a03137f46"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "overloaded",
+      "seed": 44,
+      "fingerprint": "0d684b09b94ef2a796edcad19db3b5f39087e3743a9411c3465cadccaa67d455"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "overloaded",
+      "seed": 45,
+      "fingerprint": "f0c2eccf3fdd4d654d7c781b7e13af0eb3301b4bad40ea9e7039efd0b71a96c0"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "overloaded",
+      "seed": 46,
+      "fingerprint": "fd5dc72b63e079effed90a6488e73d7d453102530839e1a58f19fa1b16a58e2d"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "overloaded",
+      "seed": 47,
+      "fingerprint": "954ba301184169cd0a9adffa7bcc1cca73b45489ff136dc2891cb3f0c77627ee"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "overloaded",
+      "seed": 48,
+      "fingerprint": "46998e4b00880dac93743b1dc286531706a99fa580a612f458eb48532b146b83"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "overloaded",
+      "seed": 49,
+      "fingerprint": "3b9b7b7496029a8bbc29b02417039e2d8a1e9bbcf4fa3581eb652baf3ba25bef"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "overloaded",
+      "seed": 50,
+      "fingerprint": "1ba344b6abd03a310a31a55411a7693eddcd9b4caf5671f9c8c748c154674795"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "overloaded",
+      "seed": 51,
+      "fingerprint": "126582a8299de98c3da8058f76bae13b6cd3106fb9c713a8d3272bd78f569742"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "underloaded",
+      "seed": 42,
+      "fingerprint": "583815bb5f64e9e79f740e087655273f8661285648d43c3a3e88292cfb102568"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "underloaded",
+      "seed": 43,
+      "fingerprint": "c8e5a668b0eedfea498e468f752c82e18601e049a1cb0e4bcd92c8191ee37fc9"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "underloaded",
+      "seed": 44,
+      "fingerprint": "a9465bcee84afc65454d8c7fcbfd152fdf0fe916ae409368d38451d828f6cfd7"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "underloaded",
+      "seed": 45,
+      "fingerprint": "6f5745af8fc5ce629d9b89af903af2fc6c3ca0a2e2a77362c53b18ed479c1962"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "underloaded",
+      "seed": 46,
+      "fingerprint": "b79bc2d96a23a76ce0a16ea6f96ecb5f6436d1b52b86ef49ba48242111476c5b"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "underloaded",
+      "seed": 47,
+      "fingerprint": "af6017f47064ebaf74247ba7e8d001de67cc5bb6561a79cd08b02165fae0b4f8"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "underloaded",
+      "seed": 48,
+      "fingerprint": "341aa5f093f95f96b864eeb28bc1cf24ebadc87f99c467a58bc19a4f4dd3e1e0"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "underloaded",
+      "seed": 49,
+      "fingerprint": "ed180168c37f48c4e5a190135d46cc1b51b9ea54ca2938308a6775ebb5aae463"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "underloaded",
+      "seed": 50,
+      "fingerprint": "7df4218781cc3d2cc2030cc9e4bb1aa7b072478ce45fdac4fd817e7b0a813333"
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "underloaded",
+      "seed": 51,
+      "fingerprint": "de9b55caf6a9e0e51a52b7db5617f3e88661eb5f435d7e7f41691f2261d73e12"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "nominal",
+      "seed": 42,
+      "fingerprint": "174fca9bf17e0794e4617c08de1ea94b5b6917d9a748732d83108e48d98e89eb"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "nominal",
+      "seed": 43,
+      "fingerprint": "914f61db1e52fea6bebde7e2d5d9def90eff9a0956249914b1e33b91a662373c"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "nominal",
+      "seed": 44,
+      "fingerprint": "a64cc57f765199888e3ee2679d09bcc34c2b840646a77d74c282640b31e03637"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "nominal",
+      "seed": 45,
+      "fingerprint": "4f0a953b53a36375793cac445dffc286fc17fc846a941dd9d190d3fb7274f337"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "nominal",
+      "seed": 46,
+      "fingerprint": "d068d279382fe9c3f8e3a7aa68c86cc3ee9b66cf568753f14f5d697870608732"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "nominal",
+      "seed": 47,
+      "fingerprint": "110db4507d1e8863030c5a71ccef3b3dd449db448eafad6d1743a9010e1dd363"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "nominal",
+      "seed": 48,
+      "fingerprint": "53a6d00f499cdd8333055e6fbf6d50bcfeceb5c84cbdf85725816dfdcb6845d4"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "nominal",
+      "seed": 49,
+      "fingerprint": "b4854368ba26bb3f09fd15af4ef9f38aa407fca43cfdb30f1beebd2f25f0b561"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "nominal",
+      "seed": 50,
+      "fingerprint": "fed4ddf745db3b6633bf7ebc520afebd85d4e592ea25248cfbabf91ef5e508c5"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "nominal",
+      "seed": 51,
+      "fingerprint": "20133822b777deec2b6b9f83572ba9658cf9206748625acaaa5ad24fa652296c"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "overloaded",
+      "seed": 42,
+      "fingerprint": "d297d1cb2c1ac1ccfbe39c113df53fb3d949716b9cbbbe0e4b9745bd4e58a38a"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "overloaded",
+      "seed": 43,
+      "fingerprint": "2777268e63b337ad60a9dbefebcc5d7d3e98953c0880c206f84fc0a8a422245b"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "overloaded",
+      "seed": 44,
+      "fingerprint": "3114191d4aa59042e3f1210764a44bebc748aa3637901c49072cf56b070c450a"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "overloaded",
+      "seed": 45,
+      "fingerprint": "1ce861d5a9e90346c52c2a48ece4becad8c703351ae042424aa32025c49f4e73"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "overloaded",
+      "seed": 46,
+      "fingerprint": "981d799009c50257e2e2c8ba41ccfc3ed75d4481527954c9d4c788db29bc3c4e"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "overloaded",
+      "seed": 47,
+      "fingerprint": "954e6aaab9113b3337c4a3c908d59fe156bd5bc4cb446a30ef0cbe348ed5f6f8"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "overloaded",
+      "seed": 48,
+      "fingerprint": "3f6bb779560cba80c92817895c34fdf01479ea8bdb0bf945e6f453f9fa0ab0b6"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "overloaded",
+      "seed": 49,
+      "fingerprint": "da11dea7e76dbe72d7d9639613b38b49dbc095179c4ced3e786b3e124001ce51"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "overloaded",
+      "seed": 50,
+      "fingerprint": "0efb57b1a5f68f2a051fba6160de29151d929cab9ee912ce7ca5e681cd12942e"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "overloaded",
+      "seed": 51,
+      "fingerprint": "a41e6e6b48282fb906fbeb77fe4ebad89f8f9fbd3c300fb9da79bb9c04ecce76"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "underloaded",
+      "seed": 42,
+      "fingerprint": "01bd20fe03a744edf82ecdbf8499003c8b9ec714d5dbbb307ce5f86e0bdab49a"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "underloaded",
+      "seed": 43,
+      "fingerprint": "633378921142258a52d481f2c182e2cff1e6a7ba802a7de7da5b0f6d7ac95471"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "underloaded",
+      "seed": 44,
+      "fingerprint": "5109ba76cc2722a63d9b39ed6ab9c296290e086c7ee73ca2ccac9f47e0c95e2c"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "underloaded",
+      "seed": 45,
+      "fingerprint": "f5b7187bc0fe01539ca8f76519c1fd95abd7854bb1612f2c0b70f51b29f07635"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "underloaded",
+      "seed": 46,
+      "fingerprint": "bbc90d92b89a3a7dbefd280002a3bfd1d91e5f718ea95c6c63aabd518a1977fe"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "underloaded",
+      "seed": 47,
+      "fingerprint": "ca3ef10cb9ba1cd74fdbd1557a447807a737e9a54c3583a359a488bf42b94d50"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "underloaded",
+      "seed": 48,
+      "fingerprint": "389374bd784a6e67f73aa93fff81501414beb2f191ed94367fa2c833a1615274"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "underloaded",
+      "seed": 49,
+      "fingerprint": "b0c023058b66ef02460c1a13283e963bb1b2dfc79045c6288ef3dad7d11c3d16"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "underloaded",
+      "seed": 50,
+      "fingerprint": "278e266523eeaf7453c91a5f3883a1ed25f49631eff7ec83daf584db935a7ffe"
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "underloaded",
+      "seed": 51,
+      "fingerprint": "c9ac3ca34f26b7a1ccaf0013ea8138fe23355bad46737cd76324ea78640755bd"
+    }
+  ],
+  "metric_definitions": {
+    "avg_waiting_time": {
+      "label": "Average waiting time",
+      "unit": "s",
+      "better": "lower"
+    },
+    "avg_turnaround_time": {
+      "label": "Average turnaround time",
+      "unit": "s",
+      "better": "lower"
+    },
+    "avg_response_time": {
+      "label": "Average response time",
+      "unit": "s",
+      "better": "lower"
+    },
+    "max_waiting_time": {
+      "label": "Maximum waiting time",
+      "unit": "s",
+      "better": "lower"
+    },
+    "p95_waiting_time": {
+      "label": "95th-percentile waiting time",
+      "unit": "s",
+      "better": "lower"
+    },
+    "makespan": {
+      "label": "Makespan",
+      "unit": "s",
+      "better": "lower"
+    },
+    "throughput": {
+      "label": "Throughput",
+      "unit": "tasks/s",
+      "better": "higher"
+    },
+    "avg_worker_utilisation_pct": {
+      "label": "Mean worker utilisation",
+      "unit": "%",
+      "better": "higher"
+    },
+    "utilisation_imbalance_cv": {
+      "label": "Utilisation imbalance (CV)",
+      "unit": "",
+      "better": "lower"
+    },
+    "idle_while_waiting_pct": {
+      "label": "Idle-while-waiting",
+      "unit": "% of worker-time",
+      "better": "lower"
+    }
+  },
+  "best_per_metric": [
+    {
+      "workload_size": 100,
+      "load_condition": "nominal",
+      "metric": "max_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 54.962882,
+      "seeds_won": 9,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "nominal",
+      "metric": "makespan",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 637.96144,
+      "seeds_won": 7,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "nominal",
+      "metric": "throughput",
+      "direction": "higher",
+      "best_algorithm": "least_loaded",
+      "mean": 0.159422,
+      "seeds_won": 7,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "nominal",
+      "metric": "avg_worker_utilisation_pct",
+      "direction": "higher",
+      "best_algorithm": "least_loaded",
+      "mean": 75.670524,
+      "seeds_won": 7,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "nominal",
+      "metric": "avg_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 7.161505,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "nominal",
+      "metric": "avg_turnaround_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 21.607257,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "nominal",
+      "metric": "avg_response_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 7.161505,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "nominal",
+      "metric": "p95_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 30.580357,
+      "seeds_won": 8,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "nominal",
+      "metric": "utilisation_imbalance_cv",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 0.067175,
+      "seeds_won": 4,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "nominal",
+      "metric": "idle_while_waiting_pct",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 0.0,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "overloaded",
+      "metric": "max_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 116.17049,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "overloaded",
+      "metric": "makespan",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 541.0604,
+      "seeds_won": 6,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "overloaded",
+      "metric": "throughput",
+      "direction": "higher",
+      "best_algorithm": "least_loaded",
+      "mean": 0.187326,
+      "seeds_won": 6,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "overloaded",
+      "metric": "avg_worker_utilisation_pct",
+      "direction": "higher",
+      "best_algorithm": "least_loaded",
+      "mean": 88.918393,
+      "seeds_won": 8,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "overloaded",
+      "metric": "utilisation_imbalance_cv",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 0.036188,
+      "seeds_won": 8,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "overloaded",
+      "metric": "avg_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 15.844343,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "overloaded",
+      "metric": "avg_turnaround_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 30.319331,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "overloaded",
+      "metric": "avg_response_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 15.844343,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "overloaded",
+      "metric": "p95_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 63.660402,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "overloaded",
+      "metric": "idle_while_waiting_pct",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 0.0,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "metric": "avg_worker_utilisation_pct",
+      "direction": "higher",
+      "best_algorithm": "round_robin",
+      "mean": 51.300041,
+      "seeds_won": 9,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "metric": "utilisation_imbalance_cv",
+      "direction": "lower",
+      "best_algorithm": "weighted_round_robin",
+      "mean": 0.152148,
+      "seeds_won": 5,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "metric": "max_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 25.668663,
+      "seeds_won": 6,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "metric": "makespan",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 993.281148,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "metric": "throughput",
+      "direction": "higher",
+      "best_algorithm": "least_loaded",
+      "mean": 0.101935,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "metric": "avg_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 1.784816,
+      "seeds_won": 9,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "metric": "avg_turnaround_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 15.502836,
+      "seeds_won": 8,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "metric": "avg_response_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 1.784816,
+      "seeds_won": 9,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "metric": "p95_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 10.621895,
+      "seeds_won": 9,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "metric": "makespan",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 993.281148,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "metric": "throughput",
+      "direction": "higher",
+      "best_algorithm": "shortest_job_first",
+      "mean": 0.101935,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 100,
+      "load_condition": "underloaded",
+      "metric": "idle_while_waiting_pct",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 0.0,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "nominal",
+      "metric": "max_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 79.134643,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "nominal",
+      "metric": "makespan",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 1453.002798,
+      "seeds_won": 7,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "nominal",
+      "metric": "throughput",
+      "direction": "higher",
+      "best_algorithm": "least_loaded",
+      "mean": 0.173163,
+      "seeds_won": 7,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "nominal",
+      "metric": "avg_worker_utilisation_pct",
+      "direction": "higher",
+      "best_algorithm": "least_loaded",
+      "mean": 81.444342,
+      "seeds_won": 4,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "nominal",
+      "metric": "utilisation_imbalance_cv",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 0.022163,
+      "seeds_won": 6,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "nominal",
+      "metric": "avg_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 9.883012,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "nominal",
+      "metric": "avg_turnaround_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 24.113257,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "nominal",
+      "metric": "avg_response_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 9.883012,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "nominal",
+      "metric": "p95_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 44.7058,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "nominal",
+      "metric": "idle_while_waiting_pct",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 0.0,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "overloaded",
+      "metric": "max_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 249.94724,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "overloaded",
+      "metric": "makespan",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 1239.314802,
+      "seeds_won": 8,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "overloaded",
+      "metric": "throughput",
+      "direction": "higher",
+      "best_algorithm": "least_loaded",
+      "mean": 0.203185,
+      "seeds_won": 8,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "overloaded",
+      "metric": "avg_worker_utilisation_pct",
+      "direction": "higher",
+      "best_algorithm": "least_loaded",
+      "mean": 95.622382,
+      "seeds_won": 8,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "overloaded",
+      "metric": "utilisation_imbalance_cv",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 0.012855,
+      "seeds_won": 9,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "overloaded",
+      "metric": "avg_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 30.705493,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "overloaded",
+      "metric": "avg_turnaround_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 44.923402,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "overloaded",
+      "metric": "avg_response_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 30.705493,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "overloaded",
+      "metric": "p95_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 142.829232,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "overloaded",
+      "metric": "idle_while_waiting_pct",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 0.0,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "underloaded",
+      "metric": "avg_worker_utilisation_pct",
+      "direction": "higher",
+      "best_algorithm": "round_robin",
+      "mean": 53.836241,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "underloaded",
+      "metric": "utilisation_imbalance_cv",
+      "direction": "lower",
+      "best_algorithm": "weighted_round_robin",
+      "mean": 0.090286,
+      "seeds_won": 8,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "underloaded",
+      "metric": "max_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 40.62712,
+      "seeds_won": 6,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "underloaded",
+      "metric": "avg_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 1.862447,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "underloaded",
+      "metric": "avg_turnaround_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 15.451497,
+      "seeds_won": 9,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "underloaded",
+      "metric": "avg_response_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 1.862447,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "underloaded",
+      "metric": "p95_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 11.885495,
+      "seeds_won": 9,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "underloaded",
+      "metric": "makespan",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 2385.295453,
+      "seeds_won": 7,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "underloaded",
+      "metric": "throughput",
+      "direction": "higher",
+      "best_algorithm": "shortest_job_first",
+      "mean": 0.105316,
+      "seeds_won": 7,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 250,
+      "load_condition": "underloaded",
+      "metric": "idle_while_waiting_pct",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 0.0,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "nominal",
+      "metric": "max_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 150.991243,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "nominal",
+      "metric": "makespan",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 2876.007715,
+      "seeds_won": 6,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "nominal",
+      "metric": "throughput",
+      "direction": "higher",
+      "best_algorithm": "least_loaded",
+      "mean": 0.174122,
+      "seeds_won": 6,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "nominal",
+      "metric": "avg_worker_utilisation_pct",
+      "direction": "higher",
+      "best_algorithm": "least_loaded",
+      "mean": 84.766276,
+      "seeds_won": 6,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "nominal",
+      "metric": "utilisation_imbalance_cv",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 0.019907,
+      "seeds_won": 6,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "nominal",
+      "metric": "avg_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 15.146763,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "nominal",
+      "metric": "avg_turnaround_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 29.824408,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "nominal",
+      "metric": "avg_response_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 15.146763,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "nominal",
+      "metric": "p95_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 56.383998,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "nominal",
+      "metric": "idle_while_waiting_pct",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 0.0,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "overloaded",
+      "metric": "max_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 543.97064,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "overloaded",
+      "metric": "makespan",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 2499.539828,
+      "seeds_won": 9,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "overloaded",
+      "metric": "throughput",
+      "direction": "higher",
+      "best_algorithm": "least_loaded",
+      "mean": 0.200225,
+      "seeds_won": 9,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "overloaded",
+      "metric": "avg_worker_utilisation_pct",
+      "direction": "higher",
+      "best_algorithm": "least_loaded",
+      "mean": 97.83007,
+      "seeds_won": 9,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "overloaded",
+      "metric": "utilisation_imbalance_cv",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 0.0073,
+      "seeds_won": 9,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "overloaded",
+      "metric": "avg_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 58.436187,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "overloaded",
+      "metric": "avg_turnaround_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 73.146263,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "overloaded",
+      "metric": "avg_response_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 58.436187,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "overloaded",
+      "metric": "p95_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 262.3772,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "overloaded",
+      "metric": "idle_while_waiting_pct",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 0.0,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "underloaded",
+      "metric": "avg_worker_utilisation_pct",
+      "direction": "higher",
+      "best_algorithm": "round_robin",
+      "mean": 56.958304,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "underloaded",
+      "metric": "utilisation_imbalance_cv",
+      "direction": "lower",
+      "best_algorithm": "weighted_round_robin",
+      "mean": 0.069904,
+      "seeds_won": 8,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "underloaded",
+      "metric": "max_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 53.111245,
+      "seeds_won": 7,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "underloaded",
+      "metric": "makespan",
+      "direction": "lower",
+      "best_algorithm": "least_loaded",
+      "mean": 4723.3028,
+      "seeds_won": 7,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "underloaded",
+      "metric": "avg_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 2.460513,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "underloaded",
+      "metric": "avg_turnaround_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 16.558319,
+      "seeds_won": 9,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "underloaded",
+      "metric": "avg_response_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 2.460513,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "underloaded",
+      "metric": "p95_waiting_time",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 14.38078,
+      "seeds_won": 10,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "underloaded",
+      "metric": "throughput",
+      "direction": "higher",
+      "best_algorithm": "shortest_job_first",
+      "mean": 0.106082,
+      "seeds_won": 7,
+      "n_seeds": 10
+    },
+    {
+      "workload_size": 500,
+      "load_condition": "underloaded",
+      "metric": "idle_while_waiting_pct",
+      "direction": "lower",
+      "best_algorithm": "shortest_job_first",
+      "mean": 0.0,
+      "seeds_won": 10,
+      "n_seeds": 10
+    }
+  ],
+  "notes": [
+    "FCFS (fcfs_baseline) is a control baseline, not a primary algorithm, and is excluded from rankings.",
+    "All times are simulated seconds; throughput = tasks / simulated makespan.",
+    "Utilisation is simulated worker busy time / makespan, not EC2 CPU or memory."
+  ]
+}

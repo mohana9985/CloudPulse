@@ -1,0 +1,40 @@
+Workers: [('W1', 1.0, 5), ('W2', 0.6, 3), ('W3', 0.4, 2)]
+Seed=42 target_utilisation=0.85 estimate_error=0.2
+
+== 1. Identical inputs (fingerprint seen by each engine run) ==
+n=100: workload fp per algo -> ['7bf341a7668e'] | worker fp -> ['c053575c54b4'] | expected 7bf341a7668e
+n=250: workload fp per algo -> ['e803772e9c3e'] | worker fp -> ['c053575c54b4'] | expected e803772e9c3e
+n=500: workload fp per algo -> ['174fca9bf17e'] | worker fp -> ['c053575c54b4'] | expected 174fca9bf17e
+
+== 2. Determinism (10 repeats, n=250) ==
+round_robin            distinct result digests: 1  (48687fb0ef61)
+weighted_round_robin   distinct result digests: 1  (d366174e76f0)
+least_loaded           distinct result digests: 1  (e6d6f9600f02)
+shortest_job_first     distinct result digests: 1  (cfd60c3fb524)
+
+== 3-6. Integrity + independent metric check ==
+   n algorithm               done violations  max|metric-ref|
+ 100 round_robin              100          0         0.00e+00
+ 100 weighted_round_robin     100          0         0.00e+00
+ 100 least_loaded             100          0         0.00e+00
+ 100 shortest_job_first       100          0         0.00e+00
+ 250 round_robin              250          0         0.00e+00
+ 250 weighted_round_robin     250          0         0.00e+00
+ 250 least_loaded             250          0         0.00e+00
+ 250 shortest_job_first       250          0         0.00e+00
+ 500 round_robin              500          0         0.00e+00
+ 500 weighted_round_robin     500          0         0.00e+00
+ 500 least_loaded             500          0         0.00e+00
+ 500 shortest_job_first       500          0         0.00e+00
+
+== 7. Hybrid-design diagnostic: idle-while-waiting (worker-seconds) ==
+n=100: round_robin=298.9 (14.7% of capacity-time)  weighted_round_robin=292.8 (15.3% of capacity-time)  least_loaded=0.4 (0.0% of capacity-time)  shortest_job_first=0.0 (0.0% of capacity-time)
+n=250: round_robin=1363.6 (25.3% of capacity-time)  weighted_round_robin=868.5 (18.7% of capacity-time)  least_loaded=5.6 (0.1% of capacity-time)  shortest_job_first=0.0 (0.0% of capacity-time)
+n=500: round_robin=3046.3 (27.7% of capacity-time)  weighted_round_robin=1486.7 (16.1% of capacity-time)  least_loaded=47.1 (0.5% of capacity-time)  shortest_job_first=0.0 (0.0% of capacity-time)
+
+== 9. Edge cases ==
+empty workload: {'round_robin': (0, 0.0), 'weighted_round_robin': (0, 0.0), 'least_loaded': (0, 0.0), 'shortest_job_first': (0, 0.0)}
+W2 unavailable (n=250): {'round_robin': [125, 0, 125], 'weighted_round_robin': [179, 0, 71], 'least_loaded': [182, 0, 68], 'shortest_job_first': [190, 0, 60]} violations: 0
+100 simultaneous arrivals at t=10: {'round_robin': 100, 'weighted_round_robin': 100, 'least_loaded': 100, 'shortest_job_first': 100} violations: 0
+overload 150% (n=500): {'round_robin': (500, 153), 'weighted_round_robin': (500, 141), 'least_loaded': (500, 145), 'shortest_job_first': (500, 34)} violations: 0
+overload + max_queue_length=2: {'round_robin': 500, 'weighted_round_robin': 500, 'least_loaded': 500, 'shortest_job_first': 500} violations: 0

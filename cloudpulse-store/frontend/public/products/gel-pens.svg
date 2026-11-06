@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="Gel Pen Set (12 colours)">
+<rect width="400" height="400" fill="#eef0f3"/>
+<circle cx="200" cy="172" r="105" fill="#ffffff" opacity="0.7"/>
+<rect x="140" y="105" width="110" height="140" rx="8" fill="none" stroke="#37414f" stroke-width="10"/><path d="M162 145h66M162 175h66M162 205h40" stroke="#37414f" stroke-width="9" stroke-linecap="round"/><path d="M275 120l15 15-45 95-20 8 2-22z" fill="#37414f"/>
+<text x="200" y="300" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#37414f">Gel Pen Set (12 colours)</text>
+<text x="200" y="372" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="13" letter-spacing="2" fill="#37414f" opacity="0.7">OFFICE SUPPLIES</text>
+</svg>

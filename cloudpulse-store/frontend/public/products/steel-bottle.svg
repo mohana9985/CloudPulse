@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="Stainless Steel Water Bottle 1L">
+<rect width="400" height="400" fill="#eaf3f1"/>
+<circle cx="200" cy="172" r="105" fill="#ffffff" opacity="0.7"/>
+<path d="M140 150h120v60a30 30 0 0 1-30 30h-60a30 30 0 0 1-30-30z" fill="none" stroke="#1f5a52" stroke-width="10" stroke-linejoin="round"/><path d="M260 165h18a14 14 0 0 1 0 28h-18M170 110v20M200 100v30M230 110v20" fill="none" stroke="#1f5a52" stroke-width="10" stroke-linecap="round"/>
+<text x="200" y="300" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#1f5a52">Stainless Steel Water</text><text x="200" y="326" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#1f5a52">Bottle 1L</text>
+<text x="200" y="372" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="13" letter-spacing="2" fill="#1f5a52" opacity="0.7">HOME &amp; KITCHEN</text>
+</svg>

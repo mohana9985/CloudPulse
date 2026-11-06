@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="Designing Reliable Web Systems">
+<rect width="400" height="400" fill="#f4efe6"/>
+<circle cx="200" cy="172" r="105" fill="#ffffff" opacity="0.7"/>
+<path d="M200 125c-25-15-55-15-75-8v110c20-7 50-7 75 8 25-15 55-15 75-8V117c-20-7-50-7-75 8z" fill="none" stroke="#6b4a1e" stroke-width="10" stroke-linejoin="round"/><path d="M200 125v110" stroke="#6b4a1e" stroke-width="10"/>
+<text x="200" y="300" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#6b4a1e">Designing Reliable Web</text><text x="200" y="326" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#6b4a1e">Systems</text>
+<text x="200" y="372" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="13" letter-spacing="2" fill="#6b4a1e" opacity="0.7">BOOKS</text>
+</svg>
