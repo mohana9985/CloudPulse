@@ -203,7 +203,7 @@ Full detail: [`docs/methodology.md`](cloudpulse-scheduler/docs/methodology.md).
 ## 8. Validation (Stage 3) and experiments (Stage 4)
 
 The scheduler was built in stages: 1 plan · 2 core · 3 validation · 4 experiments ·
-5 documentation · 6 Docker/EC2 (**not started**).
+5 documentation.
 
 **Stage 3 — fairness and reliability validation** (recorded with 194 tests, before FCFS was
 added; the suite now has 220). Verified:
