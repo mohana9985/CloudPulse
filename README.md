@@ -13,6 +13,32 @@ machines of different speeds. The repository has two independent applications:
 > simulated objects; its times are **simulated seconds** and its utilisation is **simulated busy
 > time**, not EC2 CPU measurements. The scheduler does not read the store's metrics.
 
+### Highlights
+
+- **Observe:** React + FastAPI store with Prometheus metrics, a provisioned Grafana dashboard and
+  four Locust load-test scenarios, all in Docker Compose.
+- **Schedule:** 450 reproducible simulation runs (3 sizes × 3 load levels × 10 seeds × 5
+  configurations) with fingerprint-checked fairness.
+- **Headline result:** no algorithm wins everywhere. SJF has the best average waiting time but
+  starves large tasks; Least Loaded has the best worst-case wait; Round Robin is worst because it
+  ignores worker speed (see [§9](#9-results-and-findings)).
+
+### Quick start
+
+```bash
+git clone https://github.com/mohana9985/CloudPulse.git cloudpulse && cd cloudpulse
+
+# Store -> http://localhost  (API docs at /api/docs)
+cd cloudpulse-store && docker compose up --build -d && cd ..
+
+# Scheduler -> compare all algorithms on one 100-task workload
+cd cloudpulse-scheduler
+uv venv --python 3.11 .venv && uv pip install --python .venv -r requirements.txt
+.venv/bin/python -m src.main --algorithm all --tasks 100
+```
+
+Full setup, monitoring and testing instructions are in [§10](#10-installation-and-local-execution).
+
 ---
 
 ## Contents
@@ -285,7 +311,7 @@ included in this repository (see [load-testing](cloudpulse-store/load-testing/RE
 | Node.js 20.19+ (22 recommended) | Store frontend development and build |
 
 ```bash
-git clone <repository-url> cloudpulse
+git clone https://github.com/mohana9985/CloudPulse.git cloudpulse
 cd cloudpulse
 ```
 
