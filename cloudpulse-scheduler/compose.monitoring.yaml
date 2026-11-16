@@ -1,0 +1,28 @@
+# Connects the scheduler stack to the CloudPulse Store stack (requires the store stack to be
+# running first; it creates the network):
+#   - coordinator: scraped by the store's Prometheus as "cloudpulse-coordinator:8100/metrics"
+#   - dashboard:   its "Website workload" page drives the website through the store's loadgen
+#                  and reads the scheduling gateway and Prometheus
+#   docker compose -f compose.yaml -f compose.monitoring.yaml up -d
+services:
+  coordinator:
+    networks:
+      live: {}
+      store:
+        aliases: [cloudpulse-coordinator]
+
+  dashboard:
+    environment:
+      GATEWAY_URL: http://gateway:8090
+      LOADGEN_URL: http://loadgen:8095
+      PROMETHEUS_URL: http://prometheus:9090
+      GRAFANA_PUBLIC_URL: ${GRAFANA_PUBLIC_URL:-http://localhost:3000}
+      BACKEND_CPU_LIMITS: B1=${B1_CPUS:-0.75},B2=${B2_CPUS:-0.45},B3=${B3_CPUS:-0.30}
+    networks:
+      live: {}
+      store: {}
+
+networks:
+  store:
+    external: true
+    name: cloudpulse-store_cloudpulse

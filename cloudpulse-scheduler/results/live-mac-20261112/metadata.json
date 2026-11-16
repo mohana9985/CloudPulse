@@ -1,0 +1,64 @@
+{
+  "measurement_type": "REAL execution on live workers (not simulated)",
+  "setup": "single-host-docker",
+  "created": "2026-11-12T21:17:45",
+  "git_commit": "64650fa",
+  "runner_host": "macOS-27.0.1-arm64-arm-64bit",
+  "workers": [
+    {
+      "worker_id": "W1",
+      "host": "7d712dcfafbc",
+      "capacity": 1.0,
+      "weight": 5,
+      "cpu_limit_cores": 0.75
+    },
+    {
+      "worker_id": "W2",
+      "host": "366831dedef9",
+      "capacity": 0.6,
+      "weight": 3,
+      "cpu_limit_cores": 0.45
+    },
+    {
+      "worker_id": "W3",
+      "host": "f661826a1596",
+      "capacity": 0.4,
+      "weight": 2,
+      "cpu_limit_cores": 0.3
+    }
+  ],
+  "args": {
+    "scenario": "failure",
+    "coordinator": "http://localhost:8100",
+    "experiment_id": "live-mac-20261112",
+    "setup": "single-host-docker",
+    "sizes": [
+      30,
+      60,
+      120
+    ],
+    "size": 60,
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "load": 0.85,
+    "algorithms": [
+      "round_robin",
+      "weighted_round_robin",
+      "least_loaded",
+      "shortest_job_first",
+      "fcfs_baseline"
+    ],
+    "workers": [
+      "W1",
+      "W2",
+      "W3"
+    ],
+    "fail_worker": "W2",
+    "fail_at": 5.0,
+    "down_for": 15.0,
+    "compose_dir": "<repo>/cloudpulse-scheduler"
+  }
+}

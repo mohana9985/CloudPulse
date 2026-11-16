@@ -1,0 +1,132 @@
+# CloudPulse live cluster: FastAPI coordinator + 3 FastAPI workers + Streamlit dashboard.
+# All on ONE Docker host (single-machine setup). Workers are separate containers/processes,
+# not separate machines. See live/README.md for the multi-machine setup.
+#
+# Worker heterogeneity is REAL: each worker container gets a CPU quota proportional to its
+# scheduler capacity (1.0 / 0.6 / 0.4 -> 0.75 / 0.45 / 0.30 CPU by default).
+
+name: cloudpulse-scheduler
+
+x-worker: &worker
+  build:
+    context: .
+    dockerfile: Dockerfile.live
+    target: service
+  image: cloudpulse-live:latest
+  restart: unless-stopped
+  command: ["uvicorn", "live.worker.app:app", "--host", "0.0.0.0", "--port", "9000", "--log-level", "warning"]
+  depends_on:
+    coordinator:
+      condition: service_healthy
+  networks: [live]
+  expose: ["9000"]
+  healthcheck:
+    test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:9000/health', timeout=3).status == 200 else 1)"]
+    interval: 15s
+    timeout: 5s
+    retries: 3
+    start_period: 10s
+
+x-worker-env: &worker-env
+  COORDINATOR_URL: http://coordinator:8100
+  HEARTBEAT_INTERVAL: ${HEARTBEAT_INTERVAL:-2}
+  ENABLE_CHAOS: ${ENABLE_CHAOS:-true}
+
+services:
+  coordinator:
+    build:
+      context: .
+      dockerfile: Dockerfile.live
+      target: service
+    image: cloudpulse-live:latest
+    restart: unless-stopped
+    command: ["uvicorn", "live.coordinator.app:app", "--host", "0.0.0.0", "--port", "8100", "--log-level", "warning"]
+    environment:
+      ALGORITHM: ${ALGORITHM:-least_loaded}
+      HEARTBEAT_INTERVAL: ${HEARTBEAT_INTERVAL:-2}
+      UNAVAILABLE_AFTER: ${UNAVAILABLE_AFTER:-5}
+      FAILED_AFTER: ${FAILED_AFTER:-10}
+      MAX_ATTEMPTS: ${MAX_ATTEMPTS:-3}
+    ports:
+      # localhost only; on EC2 reach it through an SSH tunnel (see live/README.md)
+      - "${COORDINATOR_BIND:-127.0.0.1}:${COORDINATOR_PORT:-8100}:8100"
+    networks: [live]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8100/health', timeout=3).status == 200 else 1)"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          memory: 192M
+
+  worker-1:
+    <<: *worker
+    environment:
+      <<: *worker-env
+      WORKER_ID: W1
+      WORKER_URL: http://worker-1:9000
+      CAPACITY: "1.0"
+      WEIGHT: "5"
+    deploy:
+      resources:
+        limits:
+          cpus: "${W1_CPUS:-0.75}"
+          memory: 128M
+
+  worker-2:
+    <<: *worker
+    environment:
+      <<: *worker-env
+      WORKER_ID: W2
+      WORKER_URL: http://worker-2:9000
+      CAPACITY: "0.6"
+      WEIGHT: "3"
+    deploy:
+      resources:
+        limits:
+          cpus: "${W2_CPUS:-0.45}"
+          memory: 128M
+
+  worker-3:
+    <<: *worker
+    environment:
+      <<: *worker-env
+      WORKER_ID: W3
+      WORKER_URL: http://worker-3:9000
+      CAPACITY: "0.4"
+      WEIGHT: "2"
+    deploy:
+      resources:
+        limits:
+          cpus: "${W3_CPUS:-0.30}"
+          memory: 128M
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.live
+      target: dashboard
+    image: cloudpulse-live-dashboard:latest
+    restart: unless-stopped
+    environment:
+      COORDINATOR_URL: http://coordinator:8100
+      RESULTS_DIR: /app/results
+    volumes:
+      - ./results:/app/results:ro
+    ports:
+      - "${DASHBOARD_BIND:-127.0.0.1}:${DASHBOARD_PORT:-8501}:8501"
+    networks: [live]
+    depends_on:
+      coordinator:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          memory: 320M
+
+networks:
+  live:
+    driver: bridge

@@ -1,0 +1,171 @@
+Writing to results/live-mac-20261112/  (REAL execution, setup=single-host-docker)
+  grid     round_robin            n=30   seed=1 done=30/30 lost=0 makespan=17.5s avg_turn=1.57s thr=1.71/s
+  grid     weighted_round_robin   n=30   seed=1 done=30/30 lost=0 makespan=13.6s avg_turn=0.99s thr=2.21/s
+  grid     least_loaded           n=30   seed=1 done=30/30 lost=0 makespan=12.2s avg_turn=0.81s thr=2.45/s
+  grid     shortest_job_first     n=30   seed=1 done=30/30 lost=0 makespan=12.3s avg_turn=0.81s thr=2.44/s
+  grid     fcfs_baseline          n=30   seed=1 done=30/30 lost=0 makespan=12.0s avg_turn=0.80s thr=2.50/s
+  grid     round_robin            n=30   seed=2 done=30/30 lost=0 makespan=15.2s avg_turn=2.16s thr=1.98/s
+  grid     weighted_round_robin   n=30   seed=2 done=30/30 lost=0 makespan=17.0s avg_turn=2.44s thr=1.76/s
+  grid     least_loaded           n=30   seed=2 done=30/30 lost=0 makespan=9.8s avg_turn=1.45s thr=3.07/s
+  grid     shortest_job_first     n=30   seed=2 done=30/30 lost=0 makespan=10.7s avg_turn=1.26s thr=2.81/s
+  grid     fcfs_baseline          n=30   seed=2 done=30/30 lost=0 makespan=9.7s avg_turn=1.21s thr=3.10/s
+  grid     round_robin            n=30   seed=3 done=30/30 lost=0 makespan=40.4s avg_turn=6.05s thr=0.74/s
+  grid     weighted_round_robin   n=30   seed=3 done=30/30 lost=0 makespan=13.0s avg_turn=2.51s thr=2.30/s
+  grid     least_loaded           n=30   seed=3 done=30/30 lost=0 makespan=11.7s avg_turn=2.03s thr=2.57/s
+  grid     shortest_job_first     n=30   seed=3 done=30/30 lost=0 makespan=14.3s avg_turn=1.66s thr=2.09/s
+  grid     fcfs_baseline          n=30   seed=3 done=30/30 lost=0 makespan=12.6s avg_turn=1.96s thr=2.39/s
+  grid     round_robin            n=60   seed=1 done=60/60 lost=0 makespan=35.6s avg_turn=3.37s thr=1.68/s
+  grid     weighted_round_robin   n=60   seed=1 done=60/60 lost=0 makespan=19.2s avg_turn=1.56s thr=3.12/s
+  grid     least_loaded           n=60   seed=1 done=60/60 lost=0 makespan=18.8s avg_turn=1.59s thr=3.19/s
+  grid     shortest_job_first     n=60   seed=1 done=60/60 lost=0 makespan=19.8s avg_turn=0.96s thr=3.03/s
+  grid     fcfs_baseline          n=60   seed=1 done=60/60 lost=0 makespan=18.3s avg_turn=1.19s thr=3.29/s
+  grid     round_robin            n=60   seed=2 done=60/60 lost=0 makespan=38.6s avg_turn=3.59s thr=1.55/s
+  grid     weighted_round_robin   n=60   seed=2 done=60/60 lost=0 makespan=21.5s avg_turn=2.51s thr=2.80/s
+  grid     least_loaded           n=60   seed=2 done=60/60 lost=0 makespan=24.3s avg_turn=1.70s thr=2.47/s
+  grid     shortest_job_first     n=60   seed=2 done=60/60 lost=0 makespan=19.0s avg_turn=1.29s thr=3.16/s
+  grid     fcfs_baseline          n=60   seed=2 done=60/60 lost=0 makespan=21.0s avg_turn=2.47s thr=2.86/s
+  grid     round_robin            n=60   seed=3 done=60/60 lost=0 makespan=57.7s avg_turn=9.34s thr=1.04/s
+  grid     weighted_round_robin   n=60   seed=3 done=60/60 lost=0 makespan=22.0s avg_turn=3.08s thr=2.73/s
+  grid     least_loaded           n=60   seed=3 done=60/60 lost=0 makespan=25.2s avg_turn=2.60s thr=2.38/s
+  grid     shortest_job_first     n=60   seed=3 done=60/60 lost=0 makespan=27.8s avg_turn=1.91s thr=2.16/s
+  grid     fcfs_baseline          n=60   seed=3 done=60/60 lost=0 makespan=18.8s avg_turn=2.41s thr=3.20/s
+  grid     round_robin            n=120  seed=1 done=120/120 lost=0 makespan=103.0s avg_turn=8.12s thr=1.17/s
+  grid     weighted_round_robin   n=120  seed=1 done=120/120 lost=0 makespan=39.8s avg_turn=1.98s thr=3.02/s
+  grid     least_loaded           n=120  seed=1 done=120/120 lost=0 makespan=35.4s avg_turn=1.16s thr=3.39/s
+  grid     shortest_job_first     n=120  seed=1 done=120/120 lost=0 makespan=35.4s avg_turn=1.01s thr=3.39/s
+  grid     fcfs_baseline          n=120  seed=1 done=120/120 lost=0 makespan=35.4s avg_turn=1.32s thr=3.39/s
+  grid     round_robin            n=120  seed=2 done=120/120 lost=0 makespan=91.1s avg_turn=8.94s thr=1.32/s
+  grid     weighted_round_robin   n=120  seed=2 done=120/120 lost=0 makespan=39.1s avg_turn=3.34s thr=3.07/s
+  grid     least_loaded           n=120  seed=2 done=120/120 lost=0 makespan=38.9s avg_turn=2.51s thr=3.09/s
+  grid     shortest_job_first     n=120  seed=2 done=120/120 lost=0 makespan=47.1s avg_turn=1.86s thr=2.55/s
+  grid     fcfs_baseline          n=120  seed=2 done=120/120 lost=0 makespan=37.4s avg_turn=2.48s thr=3.21/s
+  grid     round_robin            n=120  seed=3 done=120/120 lost=0 makespan=110.0s avg_turn=15.17s thr=1.09/s
+  grid     weighted_round_robin   n=120  seed=3 done=120/120 lost=0 makespan=40.5s avg_turn=4.72s thr=2.96/s
+  grid     least_loaded           n=120  seed=3 done=120/120 lost=0 makespan=37.2s avg_turn=4.46s thr=3.22/s
+  grid     shortest_job_first     n=120  seed=3 done=120/120 lost=0 makespan=37.3s avg_turn=2.24s thr=3.21/s
+  grid     fcfs_baseline          n=120  seed=3 done=120/120 lost=0 makespan=37.5s avg_turn=3.66s thr=3.20/s
+done
+Writing to results/live-mac-20261112/  (REAL execution, setup=single-host-docker)
+  normal   round_robin            n=60   seed=1 done=60/60 lost=0 makespan=35.5s avg_turn=3.40s thr=1.69/s
+  failure  round_robin            n=60   seed=1 done=60/60 lost=0 makespan=52.6s avg_turn=8.77s thr=1.14/s
+  normal   weighted_round_robin   n=60   seed=1 done=60/60 lost=0 makespan=18.9s avg_turn=1.42s thr=3.18/s
+  failure  weighted_round_robin   n=60   seed=1 done=60/60 lost=0 makespan=23.5s avg_turn=3.10s thr=2.55/s
+  normal   least_loaded           n=60   seed=1 done=60/60 lost=0 makespan=18.8s avg_turn=1.24s thr=3.19/s
+  failure  least_loaded           n=60   seed=1 done=60/60 lost=0 makespan=23.5s avg_turn=3.48s thr=2.55/s
+  normal   shortest_job_first     n=60   seed=1 done=60/60 lost=0 makespan=21.0s avg_turn=0.89s thr=2.85/s
+  failure  shortest_job_first     n=60   seed=1 done=60/60 lost=0 makespan=23.2s avg_turn=1.89s thr=2.59/s
+  normal   fcfs_baseline          n=60   seed=1 done=60/60 lost=0 makespan=19.3s avg_turn=1.23s thr=3.11/s
+  failure  fcfs_baseline          n=60   seed=1 done=60/60 lost=0 makespan=24.4s avg_turn=2.99s thr=2.46/s
+  normal   round_robin            n=60   seed=2 done=60/60 lost=0 makespan=49.7s avg_turn=4.20s thr=1.21/s
+  failure  round_robin            n=60   seed=2 done=60/60 lost=0 makespan=37.0s avg_turn=5.69s thr=1.62/s
+  normal   weighted_round_robin   n=60   seed=2 done=60/60 lost=0 makespan=22.1s avg_turn=2.32s thr=2.72/s
+  failure  weighted_round_robin   n=60   seed=2 done=60/60 lost=0 makespan=27.4s avg_turn=5.84s thr=2.19/s
+  normal   least_loaded           n=60   seed=2 done=60/60 lost=0 makespan=19.5s avg_turn=1.63s thr=3.07/s
+--- restarted failure stage (previous partial failure stage discarded after interruption) ---
+Writing to results/live-mac-20261112/  (REAL execution, setup=single-host-docker)
+  normal   round_robin            n=60   seed=1 done=60/60 lost=0 makespan=34.9s avg_turn=3.34s thr=1.72/s
+  failure  round_robin            n=60   seed=1 done=60/60 lost=0 makespan=49.9s avg_turn=8.31s thr=1.20/s
+  normal   weighted_round_robin   n=60   seed=1 done=60/60 lost=0 makespan=19.2s avg_turn=1.50s thr=3.12/s
+  failure  weighted_round_robin   n=60   seed=1 done=60/60 lost=0 makespan=26.0s avg_turn=2.97s thr=2.31/s
+  normal   least_loaded           n=60   seed=1 done=60/60 lost=0 makespan=18.2s avg_turn=1.01s thr=3.30/s
+  failure  least_loaded           n=60   seed=1 done=60/60 lost=0 makespan=25.9s avg_turn=3.48s thr=2.32/s
+  normal   shortest_job_first     n=60   seed=1 done=60/60 lost=0 makespan=19.8s avg_turn=0.96s thr=3.03/s
+  failure  shortest_job_first     n=60   seed=1 done=60/60 lost=0 makespan=23.8s avg_turn=2.25s thr=2.52/s
+  normal   fcfs_baseline          n=60   seed=1 done=60/60 lost=0 makespan=20.6s avg_turn=1.25s thr=2.91/s
+  failure  fcfs_baseline          n=60   seed=1 done=60/60 lost=0 makespan=24.1s avg_turn=3.23s thr=2.48/s
+  normal   round_robin            n=60   seed=2 done=60/60 lost=0 makespan=36.7s avg_turn=3.57s thr=1.63/s
+  failure  round_robin            n=60   seed=2 done=60/60 lost=0 makespan=42.8s avg_turn=6.23s thr=1.40/s
+  normal   weighted_round_robin   n=60   seed=2 done=60/60 lost=0 makespan=21.4s avg_turn=2.30s thr=2.81/s
+  failure  weighted_round_robin   n=60   seed=2 done=60/60 lost=0 makespan=34.0s avg_turn=5.65s thr=1.77/s
+  normal   least_loaded           n=60   seed=2 done=60/60 lost=0 makespan=21.1s avg_turn=1.41s thr=2.84/s
+  failure  least_loaded           n=60   seed=2 done=60/60 lost=0 makespan=29.1s avg_turn=3.79s thr=2.06/s
+  normal   shortest_job_first     n=60   seed=2 done=60/60 lost=0 makespan=25.7s avg_turn=1.39s thr=2.34/s
+  failure  shortest_job_first     n=60   seed=2 done=60/60 lost=0 makespan=33.7s avg_turn=2.39s thr=1.78/s
+  normal   fcfs_baseline          n=60   seed=2 done=60/60 lost=0 makespan=22.6s avg_turn=1.68s thr=2.66/s
+  failure  fcfs_baseline          n=60   seed=2 done=60/60 lost=0 makespan=25.2s avg_turn=3.88s thr=2.38/s
+  normal   round_robin            n=60   seed=3 done=60/60 lost=0 makespan=59.1s avg_turn=9.91s thr=1.01/s
+  failure  round_robin            n=60   seed=3 done=60/60 lost=0 makespan=85.1s avg_turn=19.36s thr=0.71/s
+  normal   weighted_round_robin   n=60   seed=3 done=60/60 lost=0 makespan=21.1s avg_turn=3.02s thr=2.85/s
+  failure  weighted_round_robin   n=60   seed=3 done=60/60 lost=0 makespan=27.3s avg_turn=5.45s thr=2.20/s
+  normal   least_loaded           n=60   seed=3 done=60/60 lost=0 makespan=25.8s avg_turn=2.69s thr=2.32/s
+  failure  least_loaded           n=60   seed=3 done=60/60 lost=0 makespan=25.8s avg_turn=4.88s thr=2.33/s
+  normal   shortest_job_first     n=60   seed=3 done=60/60 lost=0 makespan=18.3s avg_turn=1.57s thr=3.28/s
+  failure  shortest_job_first     n=60   seed=3 done=60/60 lost=0 makespan=26.7s avg_turn=2.64s thr=2.25/s
+  normal   fcfs_baseline          n=60   seed=3 done=60/60 lost=0 makespan=20.1s avg_turn=2.35s thr=2.98/s
+  failure  fcfs_baseline          n=60   seed=3 done=60/60 lost=0 makespan=26.1s avg_turn=4.72s thr=2.30/s
+done
+Writing to results/live-mac-20261112/  (REAL execution, setup=single-host-docker)
+  scaling  round_robin            n=60   seed=1 done=60/60 lost=0 makespan=27.9s avg_turn=5.22s thr=2.15/s
+  scaling  weighted_round_robin   n=60   seed=1 done=60/60 lost=0 makespan=27.7s avg_turn=5.07s thr=2.17/s
+--- restarted scaling stage 2026-11-12T21:34:11 (previous partial scaling stage was interrupted; no runs_scaling.csv had been written) ---
+  scaling  least_loaded           n=60   seed=1 done=60/60 lost=0 makespan=28.0s avg_turn=5.19s thr=2.14/s
+  scaling  shortest_job_first     n=60   seed=1 done=60/60 lost=0 makespan=28.2s avg_turn=2.22s thr=2.13/s
+  scaling  fcfs_baseline          n=60   seed=1 done=60/60 lost=0 makespan=28.2s avg_turn=5.33s thr=2.13/s
+Writing to results/live-mac-20261112/  (REAL execution, setup=single-host-docker)
+  scaling  round_robin            n=60   seed=1 done=60/60 lost=0 makespan=20.3s avg_turn=2.18s thr=2.96/s
+  scaling  round_robin            n=60   seed=1 done=60/60 lost=0 makespan=25.4s avg_turn=2.48s thr=2.36/s
+  scaling  weighted_round_robin   n=60   seed=1 done=60/60 lost=0 makespan=25.5s avg_turn=2.41s thr=2.35/s
+  scaling  least_loaded           n=60   seed=1 done=60/60 lost=0 makespan=19.9s avg_turn=1.82s thr=3.02/s
+  scaling  weighted_round_robin   n=60   seed=1 done=60/60 lost=0 makespan=19.9s avg_turn=1.82s thr=3.02/s
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "<repo>/cloudpulse-scheduler/live/experiments/run_live.py", line 262, in <module>
+    main()
+  File "<repo>/cloudpulse-scheduler/live/experiments/run_live.py", line 255, in main
+    r.run("scaling", alg, a.size, seed, a.load, total_capacity=2.0, workers=subset)
+  File "<repo>/cloudpulse-scheduler/live/experiments/run_live.py", line 96, in run
+    self.post("/scheduler/algorithm", {"algorithm": algorithm})
+  File "<repo>/cloudpulse-scheduler/live/experiments/run_live.py", line 50, in post
+    raise RuntimeError(f"{path}: {r.status_code} {r.text}")
+RuntimeError: /scheduler/algorithm: 409 {"detail":"Cannot change algorithm while tasks are pending or running"}
+  scaling  shortest_job_first     n=60   seed=1 done=60/60 lost=0 makespan=19.8s avg_turn=1.15s thr=3.03/s
+  scaling  fcfs_baseline          n=60   seed=1 done=60/60 lost=0 makespan=19.9s avg_turn=1.85s thr=3.02/s
+--- scaling stage restarted 2026-11-12T21:38:39: the earlier restart collided with a still-running runner from the previous session (both controlled the containers -> 409); contaminated scaling files deleted, clean rerun below ---
+Writing to results/live-mac-20261112/  (REAL execution, setup=single-host-docker)
+  scaling  round_robin            n=60   seed=1 done=60/60 lost=0 makespan=28.7s avg_turn=5.50s thr=2.09/s
+  scaling  weighted_round_robin   n=60   seed=1 done=60/60 lost=0 makespan=28.0s avg_turn=5.23s thr=2.14/s
+  scaling  least_loaded           n=60   seed=1 done=60/60 lost=0 makespan=28.1s avg_turn=5.28s thr=2.13/s
+  scaling  shortest_job_first     n=60   seed=1 done=60/60 lost=0 makespan=28.3s avg_turn=2.22s thr=2.12/s
+  scaling  fcfs_baseline          n=60   seed=1 done=60/60 lost=0 makespan=28.3s avg_turn=5.29s thr=2.12/s
+  scaling  round_robin            n=60   seed=1 done=60/60 lost=0 makespan=20.3s avg_turn=2.23s thr=2.96/s
+  scaling  weighted_round_robin   n=60   seed=1 done=60/60 lost=0 makespan=27.2s avg_turn=2.91s thr=2.20/s
+  scaling  least_loaded           n=60   seed=1 done=60/60 lost=0 makespan=20.1s avg_turn=1.98s thr=2.99/s
+  scaling  shortest_job_first     n=60   seed=1 done=60/60 lost=0 makespan=20.9s avg_turn=1.16s thr=2.87/s
+  scaling  fcfs_baseline          n=60   seed=1 done=60/60 lost=0 makespan=21.1s avg_turn=2.09s thr=2.84/s
+  scaling  round_robin            n=60   seed=1 done=60/60 lost=0 makespan=38.4s avg_turn=3.52s thr=1.56/s
+  scaling  weighted_round_robin   n=60   seed=1 done=60/60 lost=0 makespan=18.9s avg_turn=1.53s thr=3.17/s
+  scaling  least_loaded           n=60   seed=1 done=60/60 lost=0 makespan=18.7s avg_turn=1.18s thr=3.22/s
+  scaling  shortest_job_first     n=60   seed=1 done=60/60 lost=0 makespan=19.8s avg_turn=0.96s thr=3.03/s
+  scaling  fcfs_baseline          n=60   seed=1 done=60/60 lost=0 makespan=18.6s avg_turn=1.53s thr=3.23/s
+  scaling  round_robin            n=60   seed=2 done=60/60 lost=0 makespan=35.7s avg_turn=9.78s thr=1.68/s
+  scaling  weighted_round_robin   n=60   seed=2 done=60/60 lost=0 makespan=37.0s avg_turn=10.73s thr=1.62/s
+  scaling  least_loaded           n=60   seed=2 done=60/60 lost=0 makespan=37.1s avg_turn=10.75s thr=1.62/s
+  scaling  shortest_job_first     n=60   seed=2 done=60/60 lost=0 makespan=36.6s avg_turn=4.70s thr=1.64/s
+  scaling  fcfs_baseline          n=60   seed=2 done=60/60 lost=0 makespan=37.0s avg_turn=10.72s thr=1.62/s
+  scaling  round_robin            n=60   seed=2 done=60/60 lost=0 makespan=41.1s avg_turn=5.80s thr=1.46/s
+  scaling  weighted_round_robin   n=60   seed=2 done=60/60 lost=0 makespan=24.7s avg_turn=4.13s thr=2.43/s
+  scaling  least_loaded           n=60   seed=2 done=60/60 lost=0 makespan=25.1s avg_turn=3.60s thr=2.39/s
+  scaling  shortest_job_first     n=60   seed=2 done=60/60 lost=0 makespan=24.3s avg_turn=2.09s thr=2.47/s
+  scaling  fcfs_baseline          n=60   seed=2 done=60/60 lost=0 makespan=23.7s avg_turn=3.78s thr=2.53/s
+  scaling  round_robin            n=60   seed=2 done=60/60 lost=0 makespan=41.9s avg_turn=3.97s thr=1.43/s
+  scaling  weighted_round_robin   n=60   seed=2 done=60/60 lost=0 makespan=21.6s avg_turn=2.40s thr=2.78/s
+  scaling  least_loaded           n=60   seed=2 done=60/60 lost=0 makespan=19.3s avg_turn=1.77s thr=3.11/s
+  scaling  shortest_job_first     n=60   seed=2 done=60/60 lost=0 makespan=27.4s avg_turn=1.68s thr=2.19/s
+  scaling  fcfs_baseline          n=60   seed=2 done=60/60 lost=0 makespan=20.9s avg_turn=1.69s thr=2.87/s
+  scaling  round_robin            n=60   seed=3 done=60/60 lost=0 makespan=36.3s avg_turn=11.89s thr=1.65/s
+  scaling  weighted_round_robin   n=60   seed=3 done=60/60 lost=0 makespan=36.2s avg_turn=11.92s thr=1.66/s
+  scaling  least_loaded           n=60   seed=3 done=60/60 lost=0 makespan=35.6s avg_turn=11.49s thr=1.68/s
+  scaling  shortest_job_first     n=60   seed=3 done=60/60 lost=0 makespan=37.2s avg_turn=4.35s thr=1.61/s
+  scaling  fcfs_baseline          n=60   seed=3 done=60/60 lost=0 makespan=37.0s avg_turn=12.43s thr=1.62/s
+  scaling  round_robin            n=60   seed=3 done=60/60 lost=0 makespan=31.1s avg_turn=5.76s thr=1.93/s
+  scaling  weighted_round_robin   n=60   seed=3 done=60/60 lost=0 makespan=25.0s avg_turn=4.86s thr=2.40/s
+  scaling  least_loaded           n=60   seed=3 done=60/60 lost=0 makespan=22.5s avg_turn=4.50s thr=2.66/s
+  scaling  shortest_job_first     n=60   seed=3 done=60/60 lost=0 makespan=26.4s avg_turn=2.08s thr=2.27/s
+  scaling  fcfs_baseline          n=60   seed=3 done=60/60 lost=0 makespan=22.2s avg_turn=4.40s thr=2.70/s
+  scaling  round_robin            n=60   seed=3 done=60/60 lost=0 makespan=53.4s avg_turn=8.60s thr=1.12/s
+  scaling  weighted_round_robin   n=60   seed=3 done=60/60 lost=0 makespan=21.7s avg_turn=2.90s thr=2.77/s
+  scaling  least_loaded           n=60   seed=3 done=60/60 lost=0 makespan=24.2s avg_turn=2.32s thr=2.48/s
+  scaling  shortest_job_first     n=60   seed=3 done=60/60 lost=0 makespan=20.4s avg_turn=1.66s thr=2.94/s
+  scaling  fcfs_baseline          n=60   seed=3 done=60/60 lost=0 makespan=19.7s avg_turn=2.29s thr=3.05/s
+done

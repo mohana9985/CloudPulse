@@ -3,8 +3,15 @@
 venv/
 env/
 
-# Environment secrets
+# Environment secrets: IPs and settings live only in .env (template: .env.example)
 .env
+.env.*
+*.env
+!.env.example
+
+# Keys
+*.pem
+*.key
 
 # Python cache files
 __pycache__/
@@ -37,8 +44,6 @@ results/*
 charts/*
 
 # Keep placeholder files so the empty directories exist.
-!results/.gitkeep
-!charts/.gitkeep
 !results/README.md
 !charts/README.md
 
@@ -49,3 +54,10 @@ charts/*
 # Preserve the Stage 4 comparison charts.
 !charts/stage4-grid/
 !charts/stage4-grid/**
+
+# Preserve recorded live (REAL execution) experiments and their charts.
+!results/live-*/
+!results/live-*/**
+!results/live-*.log
+!charts/live-*/
+!charts/live-*/**

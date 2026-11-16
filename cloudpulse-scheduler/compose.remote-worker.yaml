@@ -1,0 +1,31 @@
+# ONE worker on a SEPARATE machine (multi-machine experiment). The worker only needs
+# outbound HTTP access to the coordinator; nothing on this host has to be reachable.
+#
+#   COORDINATOR_URL=http://<coordinator-host>:8100 WORKER_ID=W4 CAPACITY=1.0 WEIGHT=5 \
+#     docker compose -f compose.remote-worker.yaml up -d --build
+#
+# Use a worker id that is not already in use (W4, W5, ...), or stop the local worker with
+# the same id first. See live/README.md "Multi-machine experiment".
+name: cloudpulse-remote-worker
+
+services:
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.live
+      target: service
+    image: cloudpulse-live:latest
+    restart: unless-stopped
+    command: ["uvicorn", "live.worker.app:app", "--host", "0.0.0.0", "--port", "9000", "--log-level", "warning"]
+    environment:
+      COORDINATOR_URL: ${COORDINATOR_URL:?set COORDINATOR_URL}
+      WORKER_ID: ${WORKER_ID:-W4}
+      CAPACITY: ${CAPACITY:-1.0}
+      WEIGHT: ${WEIGHT:-5}
+      HEARTBEAT_INTERVAL: ${HEARTBEAT_INTERVAL:-2}
+      ENABLE_CHAOS: "false"
+    deploy:
+      resources:
+        limits:
+          cpus: "${WORKER_CPUS:-0.75}"
+          memory: 128M

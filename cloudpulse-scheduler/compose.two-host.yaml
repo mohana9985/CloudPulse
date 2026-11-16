@@ -1,0 +1,17 @@
+# Two-EC2 setup (see ../cloudpulse-store/docs/AWS_TWO_EC2.md): this stack runs on EC2 #2,
+# the store website on EC2 #1. Replaces compose.monitoring.yaml (no shared Docker network):
+# the dashboard reaches the store over the VPC private network.
+#
+# Enabled from .env (uncomment the "Two-EC2 setup" block of .env.example):
+#   COMPOSE_FILE=compose.yaml:compose.two-host.yaml
+#   STORE_HOST=<EC2-1-private-IP>
+#   COORDINATOR_BIND=0.0.0.0   (store Prometheus scrapes :8100; SG allows only the store SG)
+#   DASHBOARD_BIND=0.0.0.0     (Streamlit :8501; SG allows only your IP)
+services:
+  dashboard:
+    environment:
+      GATEWAY_URL: http://${STORE_HOST:?set STORE_HOST to the store EC2 private IP}:8090
+      LOADGEN_URL: http://${STORE_HOST}:8095
+      PROMETHEUS_URL: http://${STORE_HOST}:9090
+      GRAFANA_PUBLIC_URL: ${GRAFANA_PUBLIC_URL:-http://localhost:3000}
+      BACKEND_CPU_LIMITS: B1=${B1_CPUS:-0.75},B2=${B2_CPUS:-0.45},B3=${B3_CPUS:-0.30}

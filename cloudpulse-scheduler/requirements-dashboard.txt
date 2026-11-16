@@ -1,0 +1,2 @@
+# Streamlit dashboard image (in addition to requirements-live.txt)
+streamlit==1.67.0

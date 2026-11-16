@@ -1,0 +1,29 @@
+# One image for the live coordinator and workers ("service"), plus a dashboard target.
+# Dependencies are installed before code is copied so code edits rebuild in seconds.
+FROM python:3.11-slim AS base
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_DEFAULT_TIMEOUT=60
+WORKDIR /app
+COPY requirements-live.txt .
+RUN pip install -r requirements-live.txt \
+    && useradd --create-home --uid 10001 appuser
+
+FROM base AS service
+# src/ = existing scheduling algorithms (reused unchanged); live/ = coordinator, worker, dashboard
+COPY --chown=appuser:appuser src ./src
+COPY --chown=appuser:appuser live ./live
+USER appuser
+EXPOSE 8100 9000
+CMD ["uvicorn", "live.coordinator.app:app", "--host", "0.0.0.0", "--port", "8100"]
+
+FROM base AS dashboard
+COPY requirements-dashboard.txt .
+RUN pip install -r requirements-dashboard.txt
+COPY --chown=appuser:appuser src ./src
+COPY --chown=appuser:appuser live ./live
+USER appuser
+EXPOSE 8501
+CMD ["streamlit", "run", "live/dashboard/app.py", "--server.address=0.0.0.0", "--server.port=8501", "--server.headless=true", "--browser.gatherUsageStats=false"]
