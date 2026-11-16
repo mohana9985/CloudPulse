@@ -1,12 +1,42 @@
 global:
-  scrape_interval: 15s
+  scrape_interval: 5s        # short so live dashboards follow a workload within seconds
   evaluation_interval: 15s
 
 scrape_configs:
+  # The three backend replicas are scraped directly (not through the gateway) so each one's
+  # own request counters and resource usage stay separate.
   - job_name: cloudpulse-store-backend
     metrics_path: /api/metrics
     static_configs:
-      - targets: ["backend:8000"]
+      - targets: ["backend-1:8000"]
+        labels: {service: cloudpulse-store, replica: B1}
+      - targets: ["backend-2:8000"]
+        labels: {service: cloudpulse-store, replica: B2}
+      - targets: ["backend-3:8000"]
+        labels: {service: cloudpulse-store, replica: B3}
+
+  # Scheduling gateway: which replica served each request, queue wait, backend health.
+  - job_name: cloudpulse-scheduler-gateway
+    metrics_path: /gateway/metrics
+    static_configs:
+      - targets: ["gateway:8090"]
+        labels:
+          service: cloudpulse-store
+
+  # CloudPulse live scheduler coordinator (cloudpulse-scheduler/compose.monitoring.yaml
+  # attaches it to this network). Shows as "down" when the scheduler stack is not running.
+  - job_name: cloudpulse-scheduler-coordinator
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["cloudpulse-coordinator:8100"]
+        labels:
+          service: cloudpulse-scheduler
+
+  # Website workload generator (client-side view: latency as seen by the shoppers).
+  - job_name: cloudpulse-store-loadgen
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["loadgen:8095"]
         labels:
           service: cloudpulse-store
 

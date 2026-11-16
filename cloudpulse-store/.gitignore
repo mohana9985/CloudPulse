@@ -1,6 +1,7 @@
-# Secrets / local config
+# Secrets / local config: IPs and passwords live only in .env (template: .env.example)
 .env
 .env.*
+*.env
 !.env.example
 
 # Python

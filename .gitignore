@@ -3,8 +3,13 @@
 # .gitignore (the scheduler's controls which experiment outputs are tracked).
 
 # ---- Secrets and credentials -------------------------------------------------
+# All IPs, passwords and per-machine settings live ONLY in .env files (one per instance:
+# cloudpulse-store/.env on the store EC2, cloudpulse-scheduler/.env on the dashboard EC2).
+# Only the .env.example templates (placeholders, no secrets) are committed.
 .env
 .env.*
+*.env
+.envrc
 !.env.example
 *.pem
 *.key
@@ -12,6 +17,9 @@
 *.pfx
 id_rsa*
 id_ed25519*
+deploy_key*
+*_deploy_key*
+.ssh/
 .aws/
 credentials.json
 

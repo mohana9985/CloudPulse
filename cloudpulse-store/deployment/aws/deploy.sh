@@ -4,6 +4,10 @@
 #   bash deployment/aws/deploy.sh            # pull latest code (if git) + rebuild + restart
 #   bash deployment/aws/deploy.sh --no-pull  # rebuild what is on disk (e.g. copied with scp/rsync)
 #   bash deployment/aws/deploy.sh --monitoring   # also start Prometheus + Grafana (localhost only)
+#
+# All settings (IPs, passwords, two-EC2 mode, ports) live in cloudpulse-store/.env, never in
+# flags or committed files. Created from .env.example on first run. Two-EC2 setup: uncomment the
+# "Two-EC2 setup" block in .env (docs/AWS_TWO_EC2.md).
 set -euo pipefail
 
 PROJECT_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -19,19 +23,34 @@ for arg in "$@"; do
   esac
 done
 
-if [[ "$PULL" == true && -d .git ]]; then
-  echo "==> Pulling latest code"
-  git pull --ff-only
+# Works for the monorepo too: .git is at the repository root, not inside cloudpulse-store/.
+if [[ "$PULL" == true ]] && git -C "$PROJECT_DIR" rev-parse --git-dir > /dev/null 2>&1; then
+  echo "==> Pulling latest code from GitHub"
+  git -C "$PROJECT_DIR" pull --ff-only
 fi
 
 if [[ ! -f .env ]]; then
   echo "==> No .env found: creating one from .env.example (ENVIRONMENT=production)"
   cp .env.example .env
   sed -i 's/^ENVIRONMENT=.*/ENVIRONMENT=production/' .env
-  # Random Grafana password so the example value is never used on a server.
-  sed -i "s/^GRAFANA_ADMIN_PASSWORD=.*/GRAFANA_ADMIN_PASSWORD=$(openssl rand -hex 16)/" .env
   chmod 600 .env
   echo "    Review it with: nano .env"
+fi
+
+# Never run with the example password: replace the placeholder with a random one (kept in .env).
+if grep -qE '^GRAFANA_ADMIN_PASSWORD=(replace-with-a-strong-password)?$' .env; then
+  sed -i "s/^GRAFANA_ADMIN_PASSWORD=.*/GRAFANA_ADMIN_PASSWORD=$(openssl rand -hex 16)/" .env
+  echo "==> Generated a random Grafana password (see GRAFANA_ADMIN_PASSWORD in .env)"
+fi
+
+# Two-EC2 mode is switched on in .env (COMPOSE_FILE includes compose.two-host.yaml).
+if grep -qE '^COMPOSE_FILE=.*compose\.two-host\.yaml' .env; then
+  SCHED=$(grep -E '^SCHEDULER_HOST=' .env | cut -d= -f2- || true)
+  if [[ -z "$SCHED" || "$SCHED" == \<* ]]; then
+    echo "ERROR: two-EC2 mode is on but SCHEDULER_HOST in .env is not set to the dashboard EC2 private IP" >&2
+    exit 1
+  fi
+  echo "==> Two-EC2 setup: dashboard/scheduler instance at ${SCHED}"
 fi
 
 echo "==> Building images and starting containers"

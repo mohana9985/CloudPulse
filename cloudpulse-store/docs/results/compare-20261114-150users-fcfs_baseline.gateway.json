@@ -1,0 +1,25 @@
+{
+  "run_id": 20,
+  "label": "locust MixedWorkloadUser u=150",
+  "algorithm": "fcfs_baseline",
+  "dispatch_mode": "central_queue",
+  "started_unix": 1794678324.828,
+  "duration_seconds": 47.346,
+  "completed": 3237,
+  "errors": 0,
+  "throughput_rps": 68.37,
+  "avg_wait_ms": 2.18,
+  "avg_service_ms": 5.49,
+  "avg_total_ms": 7.67,
+  "p95_total_ms": 42.05,
+  "completed_per_backend": {
+    "B1": 3114,
+    "B2": 74,
+    "B3": 49
+  },
+  "share_per_backend": {
+    "B1": 96.2,
+    "B2": 2.3,
+    "B3": 1.5
+  }
+}

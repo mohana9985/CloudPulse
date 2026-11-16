@@ -32,7 +32,7 @@ docker compose version
 
 ```bash
 cd cloudpulse-store
-cp .env.example .env          # optional; defaults work without it
+cp .env.example .env          # required: then set GRAFANA_ADMIN_PASSWORD
 docker compose up --build -d  # first build takes a few minutes
 docker compose ps             # both services should show "healthy"
 ```
@@ -61,7 +61,7 @@ docker compose --profile monitoring up --build -d
 
 * Prometheus: <http://localhost:9090> (Status -> Targets shows `cloudpulse-store-backend` UP)
 * Grafana: <http://localhost:3000> - login with `GRAFANA_ADMIN_USER` / `GRAFANA_ADMIN_PASSWORD`
-  from `.env` (defaults `admin` / `change-me-in-env` if no `.env`). The dashboard
+  from `.env` (`GRAFANA_ADMIN_USER` / `GRAFANA_ADMIN_PASSWORD`, no default). The dashboard
   *CloudPulse -> CloudPulse Store - Application Overview* is provisioned automatically.
 
 Stop including monitoring: `docker compose --profile monitoring down`.
@@ -70,6 +70,22 @@ Stop including monitoring: `docker compose --profile monitoring down`.
 
 Set a different port in `.env`, e.g. `HTTP_PORT=8080`, then `docker compose up -d`
 and open <http://localhost:8080>.
+
+### The scheduling gateway
+
+`docker compose up` starts three backend replicas plus the scheduling gateway. The shop is at
+<http://localhost>; the gateway API is on <http://localhost:8090/gateway/stats> (JSON). The
+project's scheduling dashboard is the Streamlit one of the live cluster (`cloudpulse-scheduler`,
+port 8501). From the terminal:
+
+```bash
+curl -s localhost:8090/gateway/stats | python3 -m json.tool | head -40
+curl -s -X POST localhost:8090/gateway/algorithm -H 'content-type: application/json' -d '{"algorithm":"shortest_job_first"}'
+curl -sD - -o /dev/null localhost/api/products | grep -i x-cloudpulse     # which replica answered
+docker compose kill backend-2 && sleep 20 && docker compose start backend-2  # failure + recovery
+```
+
+Gateway tests: `cd scheduler-gateway && uv venv --python 3.11 .venv && uv pip install --python .venv -r requirements-dev.txt && .venv/bin/python -m pytest`.
 
 ## 3. Useful Docker commands
 

@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import contact, health, monitoring, orders, products
+from app.api import chaos, contact, health, monitoring, orders, products
 from app.core.config import settings
 from app.core.metrics import APP_INFO, PrometheusMiddleware
 from app.database.connection import SessionLocal, init_db
@@ -20,6 +20,7 @@ logger = logging.getLogger("cloudpulse")
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     logger.info("Starting %s v%s (%s)", settings.app_name, settings.app_version, settings.environment)
+    await chaos.wait_if_crashed()   # port stays closed while a demo crash's downtime lasts
     init_db()
     if settings.seed_on_startup:
         with SessionLocal() as db:
@@ -51,7 +52,7 @@ app.add_middleware(
 )
 app.add_middleware(PrometheusMiddleware)
 
-for router in (health.router, products.router, orders.router, contact.router, monitoring.router):
+for router in (health.router, products.router, orders.router, contact.router, monitoring.router, chaos.router):
     app.include_router(router)
 
 

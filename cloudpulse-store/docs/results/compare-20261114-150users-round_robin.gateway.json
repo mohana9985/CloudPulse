@@ -1,0 +1,25 @@
+{
+  "run_id": 12,
+  "label": "locust MixedWorkloadUser u=150",
+  "algorithm": "round_robin",
+  "dispatch_mode": "per_worker_queue",
+  "started_unix": 1794678135.137,
+  "duration_seconds": 47.375,
+  "completed": 3272,
+  "errors": 0,
+  "throughput_rps": 69.066,
+  "avg_wait_ms": 1.75,
+  "avg_service_ms": 6.42,
+  "avg_total_ms": 8.17,
+  "p95_total_ms": 39.13,
+  "completed_per_backend": {
+    "B1": 1120,
+    "B2": 1085,
+    "B3": 1067
+  },
+  "share_per_backend": {
+    "B1": 34.2,
+    "B2": 33.2,
+    "B3": 32.6
+  }
+}

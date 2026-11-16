@@ -18,6 +18,9 @@ class Settings:
 
     seed_on_startup: bool = os.getenv("SEED_ON_STARTUP", "true").lower() == "true"
 
+    # Failure demo endpoint POST /admin/crash (see app/api/chaos.py). Off unless enabled.
+    enable_chaos: bool = os.getenv("ENABLE_CHAOS", "false").lower() == "true"
+
     # Only needed when the frontend is served from a different origin
     # (e.g. `npm run dev` on port 5173). Behind Nginx everything is same-origin.
     cors_origins: list[str] = field(

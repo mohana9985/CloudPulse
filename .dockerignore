@@ -1,0 +1,15 @@
+# Monorepo-root build context (used by cloudpulse-store/scheduler-gateway/Dockerfile).
+**/node_modules
+**/.venv
+**/__pycache__
+**/.pytest_cache
+**/*.db
+**/*.db-*
+**/results
+**/charts
+**/data
+cloudpulse-store/frontend/dist
+cloudpulse-store/load-testing
+cloudpulse-scheduler/results
+cloudpulse-scheduler/charts
+.git

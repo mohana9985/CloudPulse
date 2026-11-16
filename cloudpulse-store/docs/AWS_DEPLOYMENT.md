@@ -38,6 +38,14 @@ chmod 400 ~/.ssh/cloudpulse-key.pem
 ssh -i ~/.ssh/cloudpulse-key.pem ubuntu@<EC2-public-IP>
 ```
 
+```powershell
+# Windows (PowerShell): put the key in your user's .ssh folder and make it private (once)
+New-Item -ItemType Directory -Force $HOME\.ssh | Out-Null
+Move-Item $HOME\Downloads\cloudpulse-key.pem $HOME\.ssh\
+icacls $HOME\.ssh\cloudpulse-key.pem /inheritance:r /grant:r "$($env:USERNAME):R"
+ssh -i $HOME\.ssh\cloudpulse-key.pem ubuntu@<EC2-public-IP>
+```
+
 The public IPv4 address is shown on the instance's *Details* tab.
 
 ## 3. Install Docker Engine and Docker Compose
@@ -187,7 +195,8 @@ Optional monitoring stack, viewed through an SSH tunnel:
 bash deployment/aws/deploy.sh --monitoring
 # on your Mac:
 ssh -i ~/.ssh/cloudpulse-key.pem -L 3000:127.0.0.1:3000 -L 9090:127.0.0.1:9090 ubuntu@<EC2-public-IP>
-# then open http://localhost:3000 and http://localhost:9090 on the Mac
+# then open http://localhost:3000 and http://localhost:9090 on your computer
+# (Windows PowerShell: same ssh line with -i $HOME\.ssh\cloudpulse-key.pem)
 ```
 
 ## 14. Safely shut down or terminate
@@ -264,4 +273,4 @@ Recommendations:
 | Build killed / very slow on `*.micro` | Confirm swap: `swapon --show`; or use a `*.small` instance |
 | `502 Bad Gateway` | Backend not healthy yet: `docker compose ps`, `docker compose logs backend` |
 | SSH `Connection timed out` | Your IP changed; update the SSH rule to "My IP" |
-| `UNPROTECTED PRIVATE KEY FILE` | `chmod 400 ~/.ssh/cloudpulse-key.pem` |
+| `UNPROTECTED PRIVATE KEY FILE` | macOS/Linux: `chmod 400 ~/.ssh/cloudpulse-key.pem` · Windows: `icacls $HOME\.ssh\cloudpulse-key.pem /inheritance:r /grant:r "$($env:USERNAME):R"` |

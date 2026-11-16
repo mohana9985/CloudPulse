@@ -1,0 +1,15 @@
+# Two-EC2 setup (see docs/AWS_TWO_EC2.md): the store runs on EC2 #1, the scheduler stack
+# (coordinator, workers, Streamlit dashboard) on EC2 #2.
+#
+# Enabled from .env (uncomment the "Two-EC2 setup" block of .env.example):
+#   COMPOSE_FILE=compose.yaml:compose.two-host.yaml
+#   SCHEDULER_HOST=<EC2-2-private-IP>
+#   GATEWAY_BIND=0.0.0.0  LOADGEN_BIND=0.0.0.0  PROMETHEUS_BIND=0.0.0.0
+# The gateway (8090), loadgen (8095) and Prometheus (9090) then listen on the instance, and the
+# AWS security group allows them ONLY from the dashboard instance's security group.
+# Grafana stays on 127.0.0.1:3000 (SSH tunnel).
+services:
+  prometheus:
+    # The scrape job targets "cloudpulse-coordinator:8100"; point that name at EC2 #2.
+    extra_hosts:
+      - "cloudpulse-coordinator:${SCHEDULER_HOST:?set SCHEDULER_HOST to the scheduler EC2 private IP}"

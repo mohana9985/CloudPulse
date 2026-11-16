@@ -2,6 +2,8 @@
 # Usage:  ./run_scenarios.sh [HOST] [USERS] [SPAWN_RATE] [DURATION]
 # Example: ./run_scenarios.sh http://localhost 20 5 1m
 set -euo pipefail
+# Inside a virtual environment (any OS) use its "python"; Windows venvs have no python3.
+if [ -n "${VIRTUAL_ENV:-}" ]; then PY=python; else PY=python3; fi
 
 HOST="${1:-http://localhost}"
 USERS="${2:-20}"
@@ -27,4 +29,4 @@ done
 echo
 echo "Reports saved in load-testing/$OUT"
 echo "Summary (Aggregated row of each *_stats.csv):"
-python3 summarize_results.py "$OUT"
+"$PY" summarize_results.py "$OUT"

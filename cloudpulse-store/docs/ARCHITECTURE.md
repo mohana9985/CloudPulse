@@ -11,7 +11,7 @@ CloudPulse Store is a small three-tier web application packaged as Docker contai
    |  Nginx 1.27                                                                 |
    |   /              -> React single-page app (static files from Vite build)   |
    |   /products/*.svg-> local product images                                    |
-   |   /api/*         -> proxy to backend:8000                                   |
+   |   /api/*         -> proxy to gateway:8090 (scheduling gateway -> backend-1/2/3)                                   |
    |   /nginx-health  -> Nginx liveness probe                                    |
    +-------------------------------------|---------------------------------------+
                                          | internal Docker network "cloudpulse"
@@ -28,9 +28,20 @@ CloudPulse Store is a small three-tier web application packaged as Docker contai
                        (Docker named volume "sqlite_data")
 
    Optional profile "monitoring":
-     Prometheus  --scrapes backend:8000/api/metrics every 15 s-->  Grafana dashboard
+     Prometheus  --scrapes backend-1/2/3 /api/metrics + gateway /gateway/metrics + loadgen every 5 s-->  Grafana dashboards
+     Gateway API (JSON/Prometheus): http://localhost:8090/gateway/*  (no UI; dashboard = Streamlit in cloudpulse-scheduler)
      (both bound to 127.0.0.1 only)
 ```
+
+## Request scheduling (added November 2026)
+
+The backend runs as **three replicas** (`backend-1/2/3`, same image) with CPU quotas
+0.75 / 0.45 / 0.30 and shared SQLite (WAL). Between Nginx and the replicas sits the
+**scheduling gateway** (`scheduler-gateway/`): it turns every `/api/*` request into a scheduling
+task and assigns it to a replica with the CloudPulse algorithm selected at runtime (RR, WRR,
+Least Loaded, SJF, FCFS control). The algorithm classes are the simulator's, unchanged; each
+replica is a mirror `Worker` whose queue holds the requests in flight. Full description:
+[SCHEDULING.md](SCHEDULING.md) and [../scheduler-gateway/README.md](../scheduler-gateway/README.md).
 
 ## Why this design
 

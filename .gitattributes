@@ -1,0 +1,8 @@
+# Keep Unix line endings for files that run in bash or inside Linux containers, so a clone on
+# Windows (Git with core.autocrlf=true) still works in Git Bash, WSL, Docker and on EC2.
+*.sh            text eol=lf
+Dockerfile*     text eol=lf
+*.conf          text eol=lf
+*.yaml          text eol=lf
+*.yml           text eol=lf
+.env.example    text eol=lf
