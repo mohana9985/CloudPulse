@@ -7,6 +7,8 @@ cd cloudpulse-scheduler
 .venv/bin/python -m src.main --grid --experiment-id stage4-grid   # overwrites this folder and charts/stage4-grid/
 ```
 
+Windows PowerShell: `.venv\Scripts\python -m src.main --grid --experiment-id stage4-grid` from `cloudpulse-scheduler`.
+
 **450 runs** = sizes 100/250/500 × loads 0.50/0.85/1.20 × seeds 42–51 × 5 configurations
 (RR, WRR, LL, SJF + FCFS control). Re-running reproduces every metric value exactly; only the
 timestamp changes.

@@ -5,7 +5,7 @@ The importable Python package that Uvicorn runs as `app.main:app`.
 | Path | Responsibility |
 |---|---|
 | `main.py` | Creates the FastAPI app (docs at `/api/docs`, `/api/redoc`), runs the lifespan hook (create tables, seed products), adds CORS and Prometheus middleware, registers all routers |
-| [`api/`](api/README.md) | HTTP routers: health, products, orders, contact, monitoring |
+| [`api/`](api/README.md) | HTTP routers: health, products, orders, contact, monitoring, failure demo (`/admin/crash`) |
 | [`core/`](core/README.md) | Settings from environment variables and Prometheus instrumentation |
 | [`database/`](database/README.md) | SQLAlchemy engine/session, ORM models, seed data |
 | [`schemas/`](schemas/README.md) | Pydantic request/response models |

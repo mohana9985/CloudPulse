@@ -5,7 +5,8 @@ Store demonstration shop: home, product listing and search, product details, car
 order confirmation, about and contact pages. No real products are sold and no payment is taken.
 
 All API calls use the relative base URL `/api`. In Docker, Nginx serves the built files and
-proxies `/api/*` to the backend; in development the Vite dev server proxies `/api` to
+proxies `/api/*` to the scheduling gateway (`gateway:8090`), which picks one of the three backend
+replicas; in development the Vite dev server proxies `/api` to
 `http://localhost:8000`. The browser therefore never makes cross-origin requests.
 
 ## Contents
@@ -20,7 +21,7 @@ proxies `/api/*` to the backend; in development the Vite dev server proxies `/ap
 | `vite.config.js` | React plugin, dev server on port 5173 with `/api` proxy (`VITE_PROXY_TARGET` overrides the target), output to `dist/` |
 | `tailwind.config.js`, `postcss.config.js` | Styling build configuration |
 | `Dockerfile` | Multi-stage build: `node:22-alpine` runs `npm ci` + `npm run build`, `nginx:1.27-alpine` serves `dist/` |
-| `nginx.conf` | SPA routing, `/api/` reverse proxy, `/nginx-health`, private-network-only `/nginx-status`, deny rules for dot-files and database files |
+| `nginx.conf` | SPA routing, `/api/` reverse proxy to the gateway, `/nginx-health`, private-network-only `/nginx-status`, deny rules for dot-files and database files |
 | `.dockerignore` | Keeps `node_modules`, `dist` and env files out of the build context |
 
 `dist/` and `node_modules/` are generated and are not tracked in Git.
@@ -37,6 +38,10 @@ npm run build             # production build into dist/
 npm run preview           # serve the production build locally
 npm run generate:images   # regenerate public/products/*.svg
 ```
+
+The npm commands are the same in Windows PowerShell (`cd cloudpulse-store\frontend`). Install
+Node.js with `winget install OpenJS.NodeJS.LTS`. For `npm run dev`, start the backend on port 8000
+first (Windows command in [`../backend/README.md`](../backend/README.md)).
 
 ## Related documentation
 - [Store README](../README.md) · [Local setup](../docs/LOCAL_SETUP.md) · [Architecture](../docs/ARCHITECTURE.md)

@@ -11,14 +11,35 @@ fifth algorithm under study and is never ranked.
 
 > Part of the [CloudPulse monorepo](../README.md).
 
-> **Status:** Stages 1–5 complete (plan, core, validation, experiments, documentation).
-> Tested locally on macOS (Apple Silicon M1), Python 3.11.13. The scheduler has **not** been
-> containerised or deployed to AWS EC2; that is Stage 6 and has not started.
+> **Status:** Stages 1–5 complete (plan, core, validation, experiments, documentation) for the
+> **offline simulator** described in this README (simulated seconds).
+> **Live cluster added (`live/`, see [`live/README.md`](live/README.md)):** the same scheduler
+> classes now drive a real FastAPI coordinator and three real FastAPI worker containers with CPU
+> quotas, heartbeats, failure detection/retry, psutil CPU/memory monitoring, a Streamlit dashboard,
+> Docker Compose, and recorded **real-execution** experiments in `results/live-*/`.
+> The Streamlit dashboard also drives the **CloudPulse Store website** (page *Website workload*)
+> through the store's `loadgen` and scheduling gateway.
+> Tested on macOS (Apple Silicon M1, Docker via Colima), Python 3.11.13.
+> **AWS:** two-EC2 deployment prepared (this stack + dashboard on its own instance, store on
+> another; cloned from GitHub, configured only through `.env`), not yet deployed — see
+> [`deployment/README.md`](deployment/README.md).
 
 ```bash
-uv venv --python 3.11 .venv && uv pip install --python .venv -r requirements.txt
-.venv/bin/python -m pytest                                   # 220 tests
-.venv/bin/python -m src.main --algorithm all --tasks 100     # one workload, all configurations
+uv venv --python 3.11 .venv && uv pip install --python .venv -r requirements.txt -r requirements-live.txt
+.venv/bin/python -m pytest                                   # 266 tests (220 simulator + 46 live)
+.venv/bin/python -m src.main --algorithm all --tasks 100     # simulator: one workload, all configurations
+cp .env.example .env                                         # settings live only in .env (ignored by Git)
+docker compose up -d --build                                 # live cluster + dashboard (http://localhost:8501)
+```
+
+Windows (PowerShell; translation table in the [root README](../README.md#windows-powershell)):
+
+```powershell
+uv venv --python 3.11 .venv; uv pip install --python .venv -r requirements.txt -r requirements-live.txt
+.venv\Scripts\python -m pytest                              # 266 tests
+.venv\Scripts\python -m src.main --algorithm all --tasks 100
+Copy-Item .env.example .env
+docker compose up -d --build                                 # then: Start-Process http://localhost:8501
 ```
 
 ---
@@ -72,15 +93,17 @@ Prometheus/Grafana stack provide the monitoring side on real infrastructure.
 
 ## 2. System architecture
 
-CloudPulse has two independent components. They share a project, not code.
+CloudPulse has two components. The **simulator** below is standalone; the store's scheduling
+gateway and this folder's live cluster import the same `src/schedulers` classes unchanged.
 
 | Component | What it is | Where it runs today |
 |---|---|---|
-| **CloudPulse Store** (`../cloudpulse-store`) | Dummy e-commerce site (React + FastAPI + SQLite, Docker Compose) that produces real web traffic, with Prometheus metrics and an optional Prometheus + Grafana profile | Docker locally; EC2 setup/deploy scripts in `cloudpulse-store/deployment/aws/` |
-| **CloudPulse Scheduler** (this folder) | Standalone Python simulator; no web server, no network ports, no database | Locally only (macOS M1) |
+| **CloudPulse Store** (`../cloudpulse-store`) | Dummy e-commerce site (React + FastAPI + SQLite, Docker Compose) that produces real web traffic, with Prometheus metrics and an optional Prometheus + Grafana profile | Docker locally; planned on EC2 #1 of the two-EC2 setup (`cloudpulse-store/docs/AWS_TWO_EC2.md`) |
+| **CloudPulse Scheduler** (this folder) | (a) standalone Python simulator — no web server, ports or database; (b) live cluster + Streamlit dashboard ([`live/`](live/README.md)) | Simulator: locally (macOS M1). Live cluster + dashboard: Docker locally; planned on EC2 #2 |
 
-The scheduler does **not** call the store, read its metrics or send metrics to Prometheus. Its
-"workers" are simulated objects, not containers or EC2 instances.
+The **simulator** does **not** call the store, read its metrics or send metrics to Prometheus;
+its "workers" are simulated objects, not containers or EC2 instances. (The live cluster does
+expose Prometheus metrics, and its dashboard drives the store — see [`live/README.md`](live/README.md).)
 
 ```mermaid
 flowchart LR
@@ -260,7 +283,7 @@ overloads slow workers can show high utilisation *and* the worst waiting times (
 ## 6. Installation and execution
 
 ### Prerequisites
-- macOS or Linux with **Python 3.11** (the version used for all reported results).
+- macOS, Linux or **Windows 10/11** with **Python 3.11** (the version used for all reported results).
 - [`uv`](https://docs.astral.sh/uv/) (recommended; it can download Python 3.11 for you) or a local
   Python 3.11 with `venv`.
 - No Docker, database or network service is needed.
@@ -278,13 +301,32 @@ python3.11 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 ```
 
+**Windows (PowerShell):**
+
+```powershell
+# Option A — uv (winget install astral-sh.uv)
+uv venv --python 3.11 .venv
+uv pip install --python .venv -r requirements.txt
+
+# Option B — standard library venv (winget install Python.Python.3.11 provides "py")
+py -3.11 -m venv .venv
+.venv\Scripts\python -m pip install -r requirements.txt
+```
+
+On Windows, write **`.venv\Scripts\python`** wherever the commands below say `.venv/bin/python`,
+for example `.venv\Scripts\python -m src.main --grid --experiment-id my-grid`. All arguments
+are the same.
+
 Dependencies (`requirements.txt`): PyYAML 6.0.3, matplotlib 3.11.2, pytest 9.2.0.
-The commands below call `.venv/bin/python` directly; after `source .venv/bin/activate` you can
-write `python` instead.
+The commands below call `.venv/bin/python` directly; after `source .venv/bin/activate`
+(Windows: `.venv\Scripts\Activate.ps1`) you can write `python` instead.
 
 ### Run the tests
 ```bash
 .venv/bin/python -m pytest          # expected: 220 passed
+```
+```powershell
+.venv\Scripts\python -m pytest       # Windows
 ```
 
 ### Run one algorithm on one workload
@@ -312,6 +354,9 @@ Run `.venv/bin/python -m src.main --help` for the full list.
 ### Run the complete experiment grid
 ```bash
 .venv/bin/python -m src.main --grid --experiment-id my-grid
+```
+```powershell
+.venv\Scripts\python -m src.main --grid --experiment-id my-grid      # Windows
 ```
 This runs the 450 runs defined under `experiment.grid` in the config. `--seeds 42,43` and
 `--sizes 100` shrink the grid for a quick check. Re-running reproduces every metric value exactly;
@@ -444,8 +489,11 @@ again: these are simulated workers, not EC2 CPU.
   dispatch/network/context-switch overhead, no failures, no work stealing between queues.
 - **Hybrid dispatch design.** RR/WRR/LL bind on arrival and SJF/FCFS bind when a worker is idle;
   the FCFS control measures this effect but does not remove it.
-- **Experimental component.** The scheduler is a research simulator, not a production cloud
-  orchestration platform. It has only been run locally; it is not deployed to EC2.
+- **Experimental component.** The simulator is a research tool, not a production cloud
+  orchestration platform. Real execution of the same algorithms is provided by the live cluster
+  in [`live/`](live/README.md), whose results ([`docs/live_results.md`](docs/live_results.md)) come
+  from three worker **containers on one Docker host**, not three machines; its two-EC2 AWS
+  deployment and the multi-machine worker run are prepared but not yet executed.
 
 Full list: [`docs/design.md` §Limitations](docs/design.md#limitations-of-the-hybrid-design-for-academic-comparison).
 
@@ -454,9 +502,8 @@ Full list: [`docs/design.md` §Limitations](docs/design.md#limitations-of-the-hy
 - Work stealing between per-worker queues.
 - Biased or heavier-tailed estimate errors and task sizes, as a sensitivity study.
 - More seeds and confidence intervals.
-- Exporting summary metrics in a form the existing CloudPulse Prometheus/Grafana stack can display
-  (internal only, no new public ports).
-- Containerising the scheduler for the existing EC2 instance (planned as Stage 6).
+- Running the prepared multi-machine experiment (`compose.remote-worker.yaml`) and the two-EC2
+  deployment (`deployment/README.md`).
 
 ---
 
@@ -478,13 +525,28 @@ cloudpulse-scheduler/
 │   ├── analysis.py                aggregation, ranks, FCFS vs SJF
 │   ├── results_exporter.py        CSV / JSON / Markdown output
 │   └── charts.py                  matplotlib charts
-├── tests/                         220 pytest tests (+ conftest.py, invariants.py helpers)
+├── live/                          LIVE CLUSTER (real execution; see live/README.md)
+│   ├── coordinator/               FastAPI coordinator: app.py (REST), cluster.py (queue, scheduling, heartbeats, retries)
+│   ├── worker/                    FastAPI worker: app.py, agent.py (heartbeat/poll/execute), metrics.py (psutil + cgroup)
+│   ├── dashboard/                 Streamlit dashboard: app.py, website_page.py (drives the store), cluster_page.py, api.py
+│   ├── experiments/               run_live.py (grid / failure / scaling), live_charts.py
+│   ├── tasks.py                   real task types and calibrated estimate model
+│   └── calibrate.py               measures seconds-per-unit on a worker
+├── compose.yaml                   coordinator + 3 workers (CPU quotas) + dashboard, one host
+├── compose.monitoring.yaml        same host: attach coordinator + dashboard to the store network
+├── compose.two-host.yaml          two EC2s: dashboard reaches the store at STORE_HOST (from .env)
+├── compose.remote-worker.yaml     one worker on a separate machine
+├── .env.example                   configuration template (placeholders only; real values in .env)
+├── Dockerfile.live, .dockerignore
+├── deployment/                    ec2-deploy-live.sh + README (two-EC2 / single instance, budget, rollback)
+├── tests/                         266 pytest tests: 220 simulator + 46 live (+ conftest.py, invariants.py)
 ├── scripts/validate_stage3.py     fairness / integrity evidence printer
-├── docs/                          design, methodology, validation report, results
+├── docs/                          design, methodology, validation report, simulated results, live results
 ├── data/workloads/                saved workloads (empty by default)
-├── results/stage4-grid/           reported experiment results
-├── charts/stage4-grid/            reported charts
-├── requirements.txt, pytest.ini, .gitignore
+├── results/stage4-grid/           reported SIMULATED experiment results
+├── results/live-mac-20261112/     reported REAL execution results (+ .log)
+├── charts/stage4-grid/, charts/live-mac-20261112/   reported charts
+├── requirements.txt (simulator), requirements-live.txt, requirements-dashboard.txt, pytest.ini, .gitignore
 └── README.md
 ```
 
@@ -498,6 +560,11 @@ cloudpulse-scheduler/
 | [`docs/design.md`](docs/design.md) | Implementation design: dispatch models, event rules, tie-breaking, assumptions, full limitations list |
 | [`docs/methodology.md`](docs/methodology.md) | Research questions, why the FCFS control, experimental design, fairness, metric definitions |
 | [`docs/stage3_validation_report.md`](docs/stage3_validation_report.md) | Fairness and reliability validation (Stage 3 record) |
-| [`docs/stage4_results.md`](docs/stage4_results.md) | Full experiment findings with all cells |
+| [`docs/stage4_results.md`](docs/stage4_results.md) | Full experiment findings with all cells (simulated) |
+| [`live/README.md`](live/README.md) | Live cluster: architecture, how the algorithms are reused, heartbeats/failure handling, API, running it, experiments, single- vs multi-machine |
+| [`docs/live_results.md`](docs/live_results.md) | **Real execution** results: algorithm grid, worker failure/recovery, 1/2/3-worker scaling |
+| [`docs/cost_analysis.md`](docs/cost_analysis.md) | Infrastructure cost per configuration and the performance / reliability / cost trade-offs |
+| [`deployment/README.md`](deployment/README.md) | Deploying the live cluster + dashboard on EC2 (two-EC2 plan or single instance): `.env` settings, resource budget, rollback |
+| [`../cloudpulse-store/docs/AWS_TWO_EC2.md`](../cloudpulse-store/docs/AWS_TWO_EC2.md) | Step-by-step two-EC2 guide (both instances, security groups, URLs) |
 | `docs/stage3_validation_output.txt`, `docs/stage4_grid_terminal_output.txt` | Raw terminal output of the validation script and the grid run |
 | `results/stage4-grid/comparison_tables.md` | Every number, generated from the CSVs |

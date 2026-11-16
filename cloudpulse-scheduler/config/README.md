@@ -14,7 +14,7 @@ Sections:
 
 Most values can be overridden on the command line (`--seed`, `--tasks`, `--load`, `--workers`,
 `--capacities`, `--weights`, `--size-mix`, `--estimate-error`); run
-`.venv/bin/python -m src.main --help` from `cloudpulse-scheduler/`.
+`.venv/bin/python -m src.main --help` (Windows: `.venv\Scripts\python -m src.main --help`) from `cloudpulse-scheduler/`.
 
 Changing this file changes future runs only; the reported results in
 [`results/stage4-grid/`](../results/stage4-grid/README.md) were produced with the values above.

@@ -10,5 +10,12 @@ cd cloudpulse-scheduler
 .venv/bin/python -m scripts.validate_stage3
 ```
 
+Windows (PowerShell) — see the [translation table](../../README.md#windows-powershell):
+
+```powershell
+cd cloudpulse-scheduler
+.venv\Scripts\python -m scripts.validate_stage3
+```
+
 Recorded output: [`docs/stage3_validation_output.txt`](../docs/stage3_validation_output.txt);
 explanation: [`docs/stage3_validation_report.md`](../docs/stage3_validation_report.md).

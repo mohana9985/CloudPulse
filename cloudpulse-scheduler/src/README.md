@@ -1,7 +1,8 @@
 # `src/` — Simulator source
 
 Python package for the discrete-event scheduling simulator. Run it as a module from
-`cloudpulse-scheduler/`: `.venv/bin/python -m src.main --help`.
+`cloudpulse-scheduler/`: `.venv/bin/python -m src.main --help` (Windows PowerShell:
+`.venv\Scripts\python -m src.main --help`).
 
 | File | Responsibility |
 |---|---|

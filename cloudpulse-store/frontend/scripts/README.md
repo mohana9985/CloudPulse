@@ -9,4 +9,6 @@ cd cloudpulse-store/frontend
 npm run generate:images
 ```
 
+The same commands work in Windows PowerShell (`cd cloudpulse-store\frontend`).
+
 The product list in the script must match `backend/app/database/seed.py` (slug, name, category).

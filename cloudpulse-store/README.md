@@ -9,14 +9,23 @@ component of the university Cloud Computing project
 
 The store looks and behaves like a small online shop (browse, search, cart, checkout,
 contact form), but no real products are sold and no payments are taken. Its purpose is
-to generate realistic web and API traffic that the separate **CloudPulse Monitoring
-Dashboard** observes: availability, response times, API performance, traffic, errors
-and server resource usage.
+to generate realistic web and API traffic that the CloudPulse monitoring (Prometheus + Grafana)
+and the **Streamlit dashboard** (`../cloudpulse-scheduler/live/dashboard`) observe and drive:
+availability, response times, API performance, traffic, errors and server resource usage.
 
 ```bash
-docker compose up --build -d     # start  -> http://localhost
+cp .env.example .env             # all settings and passwords live only in .env (ignored by Git)
+docker compose up --build -d     # start  -> http://localhost   (gateway API: http://localhost:8090/gateway/stats)
 docker compose down              # stop
 ```
+
+**Since November 2026 the CloudPulse scheduling algorithms are applied to the website itself**:
+Nginx sends every `/api/*` request to a *scheduling gateway* that routes it to one of three
+backend replicas (B1/B2/B3, with real CPU quotas 0.75 / 0.45 / 0.30) using RR, WRR, Least
+Loaded, SJF or the FCFS control. The store stays a plain shop; the gateway exposes its numbers
+as JSON/Prometheus on <http://localhost:8090/gateway/stats> (the project's scheduling dashboard
+is the Streamlit one of the live cluster, see `../cloudpulse-scheduler`). See
+[scheduler-gateway/README.md](scheduler-gateway/README.md) and [docs/SCHEDULING.md](docs/SCHEDULING.md).
 
 ---
 
@@ -69,23 +78,38 @@ Browser / Locust / CloudPulse Dashboard
             ▼
 ┌──────── frontend container: Nginx ────────┐
 │  /        → React build (static files)    │
-│  /api/*   → proxy to backend:8000         │
+│  /api/*   → proxy to gateway:8090         │
 └───────────────────┬───────────────────────┘
                     │ internal Docker network
                     ▼
-┌──────── backend container: FastAPI ───────┐
-│  Prometheus middleware → /api/metrics     │
-│  routers → services → SQLAlchemy          │
-└───────────────────┬───────────────────────┘
-                    ▼
-        SQLite on volume "sqlite_data"
+┌──── gateway container: scheduling gateway (FastAPI + httpx) ────┐
+│  1 request = 1 task · RR / WRR / LL / SJF / FCFS (unchanged     │
+│  classes from cloudpulse-scheduler/src/schedulers)              │
+│  health probes · retry on connection failure                    │
+│  own port 127.0.0.1:8090: /gateway/* API (stats, metrics, switch) │
+└──────┬──────────────────────┬──────────────────────┬────────────┘
+       ▼                      ▼                      ▼
+┌ backend-1 (B1) ┐   ┌ backend-2 (B2) ┐   ┌ backend-3 (B3) ┐   FastAPI replicas
+│ 0.75 CPU, 4 sl.│   │ 0.45 CPU, 2 sl.│   │ 0.30 CPU, 2 sl.│   (same image, same code)
+└───────┬────────┘   └───────┬────────┘   └───────┬────────┘
+        └────────────────────┼────────────────────┘
+                             ▼
+             SQLite (WAL) on volume "sqlite_data"
 
-Optional profile "monitoring": Prometheus (scrapes /api/metrics) → Grafana
+loadgen container (127.0.0.1:8095): website workload generator driven by the Streamlit
+dashboard; sends shopper API requests to the frontend, so they are scheduled like browser clicks.
+
+Optional profile "monitoring": Prometheus (every 5 s: backend-1/2/3 /api/metrics,
+gateway /gateway/metrics, loadgen /metrics, live coordinator) → Grafana (store, gateway +
+website workload, live cluster dashboards)
 ```
 
 Because Nginx serves both the website and the API from the same origin, the browser
-never makes cross-origin requests — **no CORS configuration is needed**. The backend
-port is never published. Details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+never makes cross-origin requests — **no CORS configuration is needed**. The backend ports are
+never published; the gateway (8090), loadgen (8095), Prometheus (9090) and Grafana (3000) bind to
+`127.0.0.1`. In the two-EC2 setup 8090/8095/9090 listen for the dashboard instance only
+([docs/AWS_TWO_EC2.md](docs/AWS_TWO_EC2.md)). Details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) and
+[docs/SCHEDULING.md](docs/SCHEDULING.md).
 
 ## Folder structure
 
@@ -102,48 +126,73 @@ cloudpulse-store/
 │   │   ├── hooks/, utils/     useFetch, formatting, validation
 │   │   └── App.jsx, main.jsx, index.css
 │   ├── Dockerfile             Multi-stage: Node build → Nginx
-│   └── nginx.conf             SPA routing + /api reverse proxy
-├── backend/                   FastAPI service
+│   └── nginx.conf             SPA routing + /api reverse proxy (to the gateway)
+├── scheduler-gateway/         Scheduling gateway: routes /api/* to backend-1/2/3 with the
+│   ├── gateway/               CloudPulse algorithms (config, dispatcher, app)
+│   ├── tests/                 24 pytest tests (scheduling, proxying, outage, crash trigger)
+│   └── Dockerfile             built from the monorepo root (imports cloudpulse-scheduler/src)
+├── loadgen/                   Website workload generator (FastAPI :8095) driven by the dashboard
+│   ├── loadgen/               app (start/stop/status API, /metrics), engine (seeded plan)
+│   └── tests/                 17 pytest tests
+├── backend/                   FastAPI service (run as three replicas backend-1/2/3)
 │   ├── app/
-│   │   ├── api/               health, products, orders, contact, monitoring routers
+│   │   ├── api/               health, products, orders, contact, monitoring, chaos (failure demo) routers
 │   │   ├── core/              config (env vars), metrics (Prometheus)
 │   │   ├── database/          connection, models, seed (24 products)
 │   │   ├── schemas/           Pydantic request/response models
 │   │   ├── services/          product, order, contact business logic
 │   │   └── main.py
-│   ├── tests/                 pytest suite (33 tests)
+│   ├── tests/                 pytest suite (38 tests)
 │   ├── requirements.txt       Runtime dependencies
 │   ├── requirements-dev.txt   + pytest, httpx
 │   └── Dockerfile
-├── monitoring/                Prometheus scrape config, Grafana datasource + dashboard
-├── load-testing/              Locust scenarios, runner script, results summariser
+├── monitoring/                Prometheus scrape config, Grafana datasource + dashboards (store, gateway, scheduler)
+├── load-testing/              Locust scenarios, runner script, compare_algorithms.sh, summarisers
 ├── deployment/                EC2 setup/deploy scripts, host Nginx config for HTTPS
-├── docs/                      Architecture, API, local setup, AWS, testing guides
+├── docs/                      Architecture, API, local setup, AWS (single + two EC2), testing, scheduling
 ├── compose.yaml
-├── .env.example
+├── compose.two-host.yaml      Two-EC2 overlay, switched on from .env (COMPOSE_FILE)
+├── .env.example               Configuration template (placeholders only; real values in .env)
 ├── .gitignore
 └── README.md
 ```
 
 ## Prerequisites
 
-* **Docker Desktop** for Mac (Apple Silicon) — or OrbStack / Colima. Give it ~3-4 GB RAM.
+* **macOS:** Docker Desktop for Mac (Apple Silicon) — or OrbStack / Colima. Give it ~3-4 GB RAM.
+* **Windows 10/11:** Docker Desktop for Windows with the WSL 2 backend (`winget install Docker.DockerDesktop`).
 * Optional for development/testing: Python 3.11, Node.js 20.19+ (22 recommended), Git.
+  Windows: `winget install Python.Python.3.11`, `winget install OpenJS.NodeJS.LTS`, `winget install Git.Git`.
 
 ## Local installation
 
 ```bash
 cd cloudpulse-store
-cp .env.example .env            # optional, defaults work
+cp .env.example .env            # required (passwords live only in .env)
 docker compose up --build -d
-docker compose ps               # wait until backend and frontend are "healthy"
+docker compose ps               # wait until backend-1/2/3, gateway and frontend are "healthy"
 open http://localhost
 ```
+
+Windows (PowerShell; translation table in the [root README](../README.md#windows-powershell)):
+
+```powershell
+cd cloudpulse-store
+Copy-Item .env.example .env
+docker compose up --build -d
+docker compose ps
+Start-Process http://localhost
+```
+
+If port 80 is busy on Windows (IIS / "World Wide Web Publishing Service"), set `HTTP_PORT=8080`
+in `.env`, run `docker compose up -d` again and open <http://localhost:8080>.
 
 Development without Docker (hot reload), tests and Colima setup:
 see [docs/LOCAL_SETUP.md](docs/LOCAL_SETUP.md).
 
 ## Docker commands
+
+The `docker compose` commands are identical on macOS, Linux and Windows PowerShell.
 
 | Task | Command |
 |---|---|
@@ -151,10 +200,12 @@ see [docs/LOCAL_SETUP.md](docs/LOCAL_SETUP.md).
 | Stop (keep data) | `docker compose down` |
 | Stop and **delete database** | `docker compose down -v` |
 | Status / health | `docker compose ps` |
-| Logs | `docker compose logs -f` / `docker compose logs -f backend` |
-| Restart backend | `docker compose restart backend` |
+| Logs | `docker compose logs -f` / `docker compose logs -f gateway backend-1` |
+| Restart a backend replica | `docker compose restart backend-2` |
+| Simulate a replica failure | `docker compose kill backend-2` … `docker compose start backend-2` (watch `/gateway/events`), or the dashboard's *Real crash* / *Graceful outage* buttons |
+| Change the start-up algorithm | Set `ALGORITHM=round_robin` in `.env`, then `docker compose up -d gateway` (or at runtime: `POST /gateway/algorithm`) |
 | Container CPU/RAM | `docker stats` |
-| Start with Prometheus + Grafana | `docker compose --profile monitoring up --build -d` |
+| Start with Prometheus + Grafana | `docker compose --profile monitoring up --build -d` (or `COMPOSE_PROFILES=monitoring` in `.env`) |
 | Stop including monitoring | `docker compose --profile monitoring down` |
 
 ## Website URLs
@@ -162,15 +213,19 @@ see [docs/LOCAL_SETUP.md](docs/LOCAL_SETUP.md).
 | URL | Purpose |
 |---|---|
 | <http://localhost> | Website |
+| <http://localhost:8090/gateway/stats> | Scheduling gateway statistics (JSON) |
+| <http://localhost:8090/gateway/docs> | Scheduling gateway API (Swagger UI) |
+| <http://localhost:8090/gateway/metrics> | Scheduling gateway Prometheus metrics |
+| <http://localhost:8095/loadgen/status> | Website workload generator status (driven from the Streamlit dashboard) |
 | <http://localhost/api/docs> | API documentation (Swagger UI) |
 | <http://localhost/api/redoc> | API documentation (ReDoc) |
 | <http://localhost/api/health> | Health check |
 | <http://localhost/api/ready> | Readiness check (database) |
-| <http://localhost/api/metrics> | Prometheus metrics |
+| <http://localhost/api/metrics> | Prometheus metrics (of whichever replica the gateway picks) |
 | <http://localhost/api/stats> | JSON statistics |
 | <http://localhost/nginx-health> | Nginx liveness |
 | <http://localhost:9090> | Prometheus (monitoring profile only) |
-| <http://localhost:3000> | Grafana (monitoring profile only) |
+| <http://localhost:3000> | Grafana (monitoring profile only; login from `GRAFANA_ADMIN_USER` / `GRAFANA_ADMIN_PASSWORD` in `.env`) |
 
 ## API endpoint summary
 
@@ -225,10 +280,12 @@ The backend records, for every request, using route templates as labels
 | `cloudpulse_orders_created_total`, `cloudpulse_contact_messages_total` | Business events |
 | `process_*` | Backend CPU time, memory, open files (from prometheus_client) |
 
-The CloudPulse Monitoring Dashboard can poll `/api/health`, `/api/ready`, `/api/stats`
-and scrape `/api/metrics`. The optional `monitoring` profile starts Prometheus and a
-pre-provisioned Grafana dashboard (requests/s, error rate, p50/p95/p99 latency,
-in-flight requests, orders per minute). No endpoint exposes secrets or configuration.
+Monitoring tools can poll `/api/health`, `/api/ready`, `/api/stats` and scrape `/api/metrics`.
+The optional `monitoring` profile starts Prometheus and Grafana with three provisioned dashboards:
+*Application Overview* (requests/s, error rate, p50/p95/p99 latency, in-flight requests, orders
+per minute), *Request Scheduling Gateway* (per-replica share, queue wait, health, plus the
+*Website workload* row) and *Live Cluster* (scheduler workers). No endpoint exposes secrets or
+configuration. Details: [monitoring/](monitoring/README.md).
 
 On a public server you may restrict `/api/metrics` to your monitoring server's IP —
 see the commented example in `frontend/nginx.conf`.
@@ -250,22 +307,36 @@ own CSV output. Record only numbers from your own runs.
 
 ## AWS deployment
 
+Current plan: **two new EC2 instances** — this store on EC2 #1, the Streamlit dashboard + live
+scheduler cluster on EC2 #2 — both cloned from GitHub and configured **only through `.env`**
+(IPs and passwords are never committed). Step by step:
+[docs/AWS_TWO_EC2.md](docs/AWS_TWO_EC2.md).
+
 ```bash
-ssh -i ~/.ssh/cloudpulse-key.pem ubuntu@<EC2-public-IP>
-git clone <repo-url> cloudpulse && cd cloudpulse/cloudpulse-store   # monorepo: store is a subfolder
+ssh -i ~/.ssh/cloudpulse-key.pem ubuntu@<EC2-1-public-IP>
+git clone https://github.com/mohana9985/CloudPulse.git cloudpulse
+cd cloudpulse/cloudpulse-store
 bash deployment/aws/ec2-setup.sh       # installs Docker; then log out and back in
-bash deployment/aws/deploy.sh          # build, start, health check, print URLs
+cp .env.example .env && chmod 600 .env && nano .env   # two EC2s: uncomment the Two-EC2 block
+bash deployment/aws/deploy.sh          # git pull, build, start, health check, print URLs
 ```
 
-In the monorepo, `deploy.sh` skips its own `git pull` (the `.git` folder is one level up), so
-update with `git -C .. pull --ff-only` before re-running it.
+From Windows the `ssh` line is the same in PowerShell, with the key at
+`$HOME\.ssh\cloudpulse-key.pem` (protect it once with
+`icacls $HOME\.ssh\cloudpulse-key.pem /inheritance:r /grant:r "$($env:USERNAME):R"`). Everything
+after `ssh` runs on the Ubuntu instance, so it is the same for every computer.
 
-Security group: SSH 22 from **your IP only**, HTTP 80 (and HTTPS 443) from anywhere.
-Backend, Prometheus and Grafana ports are never public. Full guide, HTTPS with Let's
-Encrypt, and cost advice: [docs/AWS_DEPLOYMENT.md](docs/AWS_DEPLOYMENT.md).
+`deploy.sh` pulls at the repository root (works in the monorepo), replaces the placeholder Grafana
+password with a random one, and stops if the two-EC2 block is on but `SCHEDULER_HOST` is still the
+placeholder. To update: push from your Mac, then re-run `deploy.sh`.
 
-> **Cost warning:** a running EC2 instance, its EBS disk and any Elastic IP are billed.
-> Stop the instance when not in use and terminate it when the project is finished.
+Security group: SSH 22 from **your IP only**, HTTP 80 (and HTTPS 443) from anywhere; in the
+two-EC2 setup also 8090/8095/9090 from the dashboard instance's security group only. Backend,
+Prometheus and Grafana ports are never public. Single instance, HTTPS with Let's Encrypt and cost
+advice: [docs/AWS_DEPLOYMENT.md](docs/AWS_DEPLOYMENT.md).
+
+> **Cost warning:** running EC2 instances, their EBS disks and any Elastic IP are billed.
+> Stop the instances when not in use and terminate them when the project is finished.
 > Free Tier eligibility is not assumed.
 
 ## Testing
@@ -274,8 +345,18 @@ Encrypt, and cost advice: [docs/AWS_DEPLOYMENT.md](docs/AWS_DEPLOYMENT.md).
 cd backend
 python3.11 -m venv .venv && source .venv/bin/activate
 pip install -r requirements-dev.txt
-pytest -v                               # 33 tests, temporary database
+pytest -v                               # 38 tests, temporary database
 cd ../frontend && npm ci && npm run build
+```
+
+Windows (PowerShell):
+
+```powershell
+cd backend
+py -3.11 -m venv .venv
+.venv\Scripts\python -m pip install -r requirements-dev.txt
+.venv\Scripts\python -m pytest -v       # 38 tests, temporary database
+cd ..\frontend; npm ci; npm run build
 ```
 
 System checks (endpoints, browser flow, persistence after restart, metrics):
@@ -285,9 +366,11 @@ System checks (endpoints, browser flow, persistence after restart, metrics):
 
 | Problem | Solution |
 |---|---|
-| `Cannot connect to the Docker daemon` | Start Docker Desktop (or `colima start`) |
+| `Cannot connect to the Docker daemon` | Start Docker Desktop (or `colima start` on macOS) |
+| `required variable GRAFANA_ADMIN_PASSWORD is missing a value` | No `.env`: `cp .env.example .env` (set the password there) |
+| `required variable SCHEDULER_HOST is missing a value` | `.env` enables the two-EC2 overlay (`COMPOSE_FILE`) without `SCHEDULER_HOST`; set it or comment the block out |
 | `port is already allocated` / port 80 busy | Set `HTTP_PORT=8080` in `.env`, open <http://localhost:8080> |
-| Website loads but shows "Cannot reach the server" | Backend unhealthy: `docker compose ps`, `docker compose logs backend` |
+| Website loads but shows "Cannot reach the server" | Backend or gateway unhealthy: `docker compose ps`, `docker compose logs gateway backend-1` |
 | `502 Bad Gateway` right after start | Backend still starting; wait for `(healthy)` |
 | Changes not visible | Rebuild: `docker compose up --build -d`; hard-refresh the browser |
 | Products show "Out of stock" after many load tests | Expected; reset with `docker compose down -v && docker compose up -d` |
@@ -306,7 +389,7 @@ System checks (endpoints, browser flow, persistence after restart, metrics):
 ## Future improvements
 
 * PostgreSQL (e.g. Amazon RDS) for concurrent writes; Prometheus multiprocess mode with several workers.
-* Horizontal scaling behind an Application Load Balancer / Auto Scaling group for scheduling experiments.
+* Horizontal scaling across instances behind an Application Load Balancer / Auto Scaling group (today the three replicas share one host).
 * CI pipeline (GitHub Actions) running tests and building images; images pushed to Amazon ECR.
 * Structured JSON logs and log shipping (CloudWatch Logs).
 * Simple admin page to restock products between load tests.

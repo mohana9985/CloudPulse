@@ -2,7 +2,7 @@
 
 | File | Responsibility |
 |---|---|
-| `config.py` | Frozen `Settings` dataclass read from environment variables (`DATABASE_URL`, `ENVIRONMENT`, `LOG_LEVEL`, `APP_VERSION`, `SEED_ON_STARTUP`, `CORS_ORIGINS`, …). Nothing secret is stored here |
+| `config.py` | Frozen `Settings` dataclass read from environment variables (`DATABASE_URL`, `ENVIRONMENT`, `LOG_LEVEL`, `APP_VERSION`, `SERVICE_NAME` (replica name, e.g. `cloudpulse-store-backend-2`), `SEED_ON_STARTUP`, `ENABLE_CHAOS`, `CORS_ORIGINS`, …). Nothing secret is stored here |
 | `metrics.py` | Prometheus instrumentation: a pure ASGI `PrometheusMiddleware` plus the metric objects |
 
 ## Metrics exported at `/api/metrics`

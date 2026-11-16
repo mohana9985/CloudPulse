@@ -1,10 +1,18 @@
 # `tests/` — Scheduler test suite
 
-**220 pytest tests** (parametrised), all passing on Python 3.11.
+**266 pytest tests** (parametrised), all passing on Python 3.11: 220 for the simulator and 46
+for the live cluster (`live/`).
 
 ```bash
 cd cloudpulse-scheduler
-.venv/bin/python -m pytest          # expected: 220 passed
+.venv/bin/python -m pytest          # expected: 266 passed
+```
+
+Windows (PowerShell) — see the [translation table](../../README.md#windows-powershell):
+
+```powershell
+cd cloudpulse-scheduler
+.venv\Scripts\python -m pytest       # expected: 266 passed
 ```
 
 | File | Tests | Covers |
@@ -21,6 +29,9 @@ cd cloudpulse-scheduler
 | `test_no_actual_duration_leak.py` | 15 | Runtime spy, cheating-scheduler detection, static scan, counterfactual |
 | `test_workload_generator.py` | 23 | Seeded generation, size mix, estimates, save/load, fingerprints |
 | `test_experiment_runner.py` | 13 | Grid size and determinism, shared workloads, mean/SD aggregation, primary-only ranks, paired FCFS vs SJF, exporter files, CLI (incl. grid with charts) |
+| `test_live_tasks.py` | 12 | Real task functions: determinism, validation, calibrated estimate model |
+| `test_live_cluster.py` | 15 | Coordinator core: submission/status, each algorithm genuinely called, heartbeat registration, configurable unavailable/failed timeouts, recovery, interrupted-task retry and reassignment, retry limit (task marked failed, never lost), stale results, counters/metrics |
+| `test_live_services.py` | 19 | FastAPI coordinator + worker apps in-process (TestClient): REST API, Prometheus `/metrics`, worker heartbeat/poll/result cycle with real execution, dashboard API client, end-to-end runs for all five configurations including a worker outage |
 | `conftest.py` | — | Shared fixtures |
 | `invariants.py` | — | Independent schedule checker and reference metric calculator (also used by `scripts/validate_stage3.py`) |
 

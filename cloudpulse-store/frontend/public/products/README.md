@@ -11,4 +11,6 @@ cd cloudpulse-store/frontend
 npm run generate:images      # rewrites every *.svg here
 ```
 
+Same commands in Windows PowerShell (`cd cloudpulse-store\frontend`).
+
 Generator: [`scripts/generate-product-images.mjs`](../../scripts/README.md).
