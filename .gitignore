@@ -77,3 +77,6 @@ Thumbs.db
 # deployment session logs (contain host details) are kept out of the public repo.
 /*.pdf
 /terminal.md
+
+# Local AWS terminal logs (contain IPs) — kept on laptop only
+/terminal logs/
