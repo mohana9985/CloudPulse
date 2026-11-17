@@ -10,8 +10,8 @@
 services:
   dashboard:
     environment:
-      GATEWAY_URL: http://${STORE_HOST:?set STORE_HOST to the store EC2 private IP}:8090
-      LOADGEN_URL: http://${STORE_HOST}:8095
-      PROMETHEUS_URL: http://${STORE_HOST}:9090
-      GRAFANA_PUBLIC_URL: ${GRAFANA_PUBLIC_URL:-http://localhost:3000}
+      GATEWAY_URL: http://${STORE_HOST:?set STORE_HOST to the store EC2 private IP}:${STORE_GATEWAY_PORT:-8090}
+      LOADGEN_URL: http://${STORE_HOST}:${STORE_LOADGEN_PORT:-8095}
+      PROMETHEUS_URL: http://${STORE_HOST}:${STORE_PROMETHEUS_PORT:-9090}
+      GRAFANA_PUBLIC_URL: ${GRAFANA_PUBLIC_URL:-http://localhost:3001}   # AWS Grafana via SSH tunnel on 3001 (3000 = local)
       BACKEND_CPU_LIMITS: B1=${B1_CPUS:-0.75},B2=${B2_CPUS:-0.45},B3=${B3_CPUS:-0.30}

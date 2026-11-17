@@ -157,9 +157,9 @@ means the store's `.env` Two-EC2 block is not enabled, or the security group rul
 |---|---|
 | Store website | `http://<EC2-1-public-IP>/` |
 | Dashboard (Website workload + Compute cluster) | `http://<EC2-2-public-IP>:8501` |
-| Grafana | `ssh -i ~/.ssh/cloudpulse-key.pem -N -L 3000:127.0.0.1:3000 ubuntu@<EC2-1-public-IP>`, then `http://localhost:3000` (password: `GRAFANA_ADMIN_PASSWORD` in EC2 #1 `.env`) |
+| Grafana | `bash deployment/aws/tunnel.sh` (Windows: `powershell -ExecutionPolicy Bypass -File deployment\aws\tunnel.ps1`) on your computer, then `http://localhost:3001` (password: `GRAFANA_ADMIN_PASSWORD` in EC2 #1 `.env`) |
 
-The dashboard's Grafana links point to `http://localhost:3000`, so they work while the tunnel is open.
+The dashboard's Grafana links point to `http://localhost:3001`, so they work while the tunnel is open. AWS uses port 3001 so it never clashes with a local Grafana on `http://localhost:3000`. The tunnel script reads the IPs, key and local ports from the `AWS_*` lines of `cloudpulse-store/.env` on your computer and also opens Prometheus `9091`, gateway `8091`, loadgen `8096` and coordinator `8101`; full table in [`../deployment/aws/README.md`](../deployment/aws/README.md#port-map-local-docker-vs-aws).
 
 Prometheus on EC2 #1 scrapes the coordinator on EC2 #2 (`cloudpulse-coordinator` resolves to
 `SCHEDULER_HOST` through `extra_hosts`). Check from EC2 #1:

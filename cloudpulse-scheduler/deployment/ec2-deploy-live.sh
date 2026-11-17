@@ -82,7 +82,7 @@ for _ in $(seq 1 60); do
     free -m
     if [ -n "$STORE_HOST" ]; then
       echo "OK. Dashboard: http://<this-EC2-public-IP>:8501  (security group: port 8501 from your IP only)"
-      echo "    Grafana:   ssh -i <key>.pem -N -L 3000:127.0.0.1:3000 ubuntu@<store-EC2-public-IP>, then http://localhost:3000"
+      echo "    Grafana:   ssh -i <key>.pem -N -L 3001:127.0.0.1:3000 ubuntu@<store-EC2-public-IP>, then http://localhost:3001"
       exit 0
     fi
     echo "OK. From your Mac: ssh -i <key>.pem -N -L 8100:127.0.0.1:8100 -L 8501:127.0.0.1:8501 -L 3000:127.0.0.1:3000 ubuntu@<EC2-IP>"
