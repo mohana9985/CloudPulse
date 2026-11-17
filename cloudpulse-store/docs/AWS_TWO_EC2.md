@@ -157,9 +157,9 @@ means the store's `.env` Two-EC2 block is not enabled, or the security group rul
 |---|---|
 | Store website | `http://<EC2-1-public-IP>/` |
 | Dashboard (Website workload + Compute cluster) | `http://<EC2-2-public-IP>:8501` |
-| Grafana | `bash deployment/aws/tunnel.sh` (Windows: `powershell -ExecutionPolicy Bypass -File deployment\aws\tunnel.ps1`) on your computer, then `http://localhost:3001` (password: `GRAFANA_ADMIN_PASSWORD` in EC2 #1 `.env`) |
+| Grafana | `http://<EC2-1-public-IP>:3001` (see "No terminal during a demo" below) (password: `GRAFANA_ADMIN_PASSWORD` in EC2 #1 `.env`) |
 
-The dashboard's Grafana links point to `http://localhost:3001`, so they work while the tunnel is open. AWS uses port 3001 so it never clashes with a local Grafana on `http://localhost:3000`. The tunnel script reads the IPs, key and local ports from the `AWS_*` lines of `cloudpulse-store/.env` on your computer and also opens Prometheus `9091`, gateway `8091`, loadgen `8096` and coordinator `8101`; full table in [`../deployment/aws/README.md`](../deployment/aws/README.md#port-map-local-docker-vs-aws).
+AWS uses port 3001 so it never clashes with a local Grafana on `http://localhost:3000`. Port map: [`../deployment/aws/README.md`](../deployment/aws/README.md#port-map-local-docker-vs-aws).
 
 **No terminal during a demo:** on EC2 #1 set `GRAFANA_BIND=0.0.0.0` and `GRAFANA_PORT=3001` in `.env`, run `docker compose up -d grafana`, and add a security group inbound rule TCP 3001 from **My IP** only. Grafana is then at `http://<EC2-1-public-IP>:3001` with no tunnel. On EC2 #2 set `GRAFANA_PUBLIC_URL=http://<EC2-1-public-IP>:3001` in `.env` and run `docker compose up -d dashboard` so the Streamlit links match.
 

@@ -194,9 +194,9 @@ Optional monitoring stack, viewed through an SSH tunnel:
 ```bash
 bash deployment/aws/deploy.sh --monitoring
 # on your Mac:
-bash deployment/aws/tunnel.sh      # reads AWS_* from .env; Windows: deployment\aws\tunnel.ps1
+ssh -i ~/.ssh/cloudpulse-key.pem -N -L 3001:127.0.0.1:3000 -L 9091:127.0.0.1:9090 ubuntu@<EC2-public-IP>
 # then open http://localhost:3001 (Grafana) and http://localhost:9091 (Prometheus);
-# 3000 / 9090 stay free for local Docker
+# 3000 / 9090 stay free for local Docker. Windows PowerShell: same line with -i $HOME\.ssh\cloudpulse-key.pem
 ```
 
 ## 14. Safely shut down or terminate
