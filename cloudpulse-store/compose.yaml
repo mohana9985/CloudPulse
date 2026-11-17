@@ -200,7 +200,7 @@ services:
       - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
       - grafana_data:/var/lib/grafana
     ports:
-      - "127.0.0.1:${GRAFANA_PORT:-3000}:3000"   # localhost only; on AWS reach it with deployment/aws/tunnel.sh
+      - "${GRAFANA_BIND:-127.0.0.1}:${GRAFANA_PORT:-3000}:3000"   # localhost only by default; AWS: tunnel.sh, or GRAFANA_BIND=0.0.0.0 + SG "My IP"
     networks:
       - cloudpulse
     depends_on:
